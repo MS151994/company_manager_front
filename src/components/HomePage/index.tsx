@@ -1,15 +1,9 @@
-import {UserLogin} from "../usersForm/UserLogin";
-import {useCookies} from "react-cookie";
+import {Menu} from "../commons/Menu/Menu";
 
 export const HomePage = () => {
-    const [cookie, setCookie] = useCookies(['user']);
     return (
         <>
-            {(cookie.user && cookie.user !== "undefined")
-                ? <>
-                    <h1>home page</h1>
-                </>
-                : <UserLogin/>}
+            <h1>Home Page</h1>
         </>
     )
 }
