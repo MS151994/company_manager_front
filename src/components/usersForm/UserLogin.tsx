@@ -6,9 +6,10 @@ import {NavLink} from "react-router-dom";
 import {FormButton} from "../commons/buttons/FormButon";
 import './userForm.css';
 
+
 export const UserLogin = () => {
-    const [cookie, setCookie] = useCookies(['user', 'username']);
-    const [loading, setLoading] = useState(false);
+    const [cookie, setCookie] = useCookies<string>(['user', 'username']);
+    const [loading, setLoading] = useState<boolean>(false);
     const [form, setForm] = useState({
         name: '',
         password: '',
@@ -39,6 +40,7 @@ export const UserLogin = () => {
             }
             setCookie('user', data.id, {path: '/'});
             setCookie('username', data.name, {path: '/'});
+            window.location.reload();
         } finally {
             setLoading(false);
         }
