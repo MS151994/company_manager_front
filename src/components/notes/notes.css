@@ -1,0 +1,62 @@
+.notes__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+}
+
+.page_title h1 {
+    text-align: center;
+    font-weight: 200;
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+.add_new_note,
+.notes__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.add_new_note form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.add_new_note form label {
+    width: 100%;
+}
+
+.add_new_note form input,
+.add_new_note form textarea {
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    outline-color: orange;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.one_note {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    min-height: 50px;
+    margin: 0 auto;
+    padding: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.text_box{
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.7);
+    font-style: italic;
+}
