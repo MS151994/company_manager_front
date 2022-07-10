@@ -1,11 +1,11 @@
-import {FormButton} from "../commons/buttons/FormButon";
 import {OneNote} from "./OneNote/OneNote";
 import {useEffect, useState} from "react";
 import {config} from "../config/config";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {NotesInterface} from 'types';
 import {useCookies} from "react-cookie";
-
+import {AddNewForm} from "./AddNewForm/AddNewForm";
+import {PageTitle} from "../commons/PageTitle/PageTitle";
 import './notes.css';
 
 export const Notes = () => {
@@ -20,28 +20,16 @@ export const Notes = () => {
                 const res = await fetch(`${config.api}/notes/${cookie.user}`);
                 const notes = await res.json();
                 await setNotes(notes)
-                console.log(notes)
             } finally {
                 setLoading(false);
             }
         })();
-    }, [])
+    }, []);
+
     return (
         <div className="notes__container">
-            <div className="page_title">
-                <h1>Notes Pages</h1>
-            </div>
-            <div className="add_new_note">
-                <form action="">
-                    <label>
-                        <input type="text" placeholder={'title'}/>
-                    </label>
-                    <label>
-                        <textarea rows={5} cols={20} placeholder={'text note...'}></textarea>
-                    </label>
-                    <FormButton buttonName={'add note'}/>
-                </form>
-            </div>
+            <PageTitle pageTitle={"notes page"}/>
+            <AddNewForm/>
             <div className="notes__box">
                 {loading && <Spinner/>}
                 {notes.map((note: NotesInterface) =>

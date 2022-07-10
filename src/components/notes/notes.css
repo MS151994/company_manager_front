@@ -5,13 +5,6 @@
     width: 100vw;
 }
 
-.page_title h1 {
-    text-align: center;
-    font-weight: 200;
-    text-transform: uppercase;
-    padding: 5px;
-}
-
 .add_new_note,
 .notes__box {
     display: flex;
@@ -20,32 +13,11 @@
     align-items: center;
     width: 100%;
 }
-.notes__box{
+
+.notes__box {
     flex-direction: column;
 }
 
-.add_new_note form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-}
-
-.add_new_note form label {
-    width: 100%;
-}
-
-.add_new_note form input,
-.add_new_note form textarea {
-    border: 1px solid rgba(0, 0, 0, 0.45);
-    border-radius: 4px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    outline-color: orange;
-    margin-top: 5px;
-    width: 100%;
-}
 
 @media (min-width: 1024px) {
     .add_new_note,
