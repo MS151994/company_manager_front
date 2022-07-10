@@ -1,0 +1,47 @@
+.one_note {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+    width: 80%;
+    margin: 2px auto;
+    padding: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.created_date {
+    font-size: 0.7rem;
+    font-style: italic;
+}
+
+.text_box {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-style: italic;
+}
+
+.buttons_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+.buttons_box button {
+    margin-bottom: 2px;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.important {
+    border: 1px solid orange;
+    border-radius: 4px;
+}
+
+@media screen {
+    .buttons_box button:hover {
+        border-color: rgba(0, 0, 0, 0.45);
+    }
+}
