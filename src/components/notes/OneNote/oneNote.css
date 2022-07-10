@@ -10,6 +10,7 @@
 }
 
 .created_date {
+    color: rgba(0, 0, 0, 0.60);
     font-size: 0.7rem;
     font-style: italic;
 }
@@ -38,6 +39,28 @@
 .important {
     border: 1px solid orange;
     border-radius: 4px;
+    background: rgba(255, 165, 0, 0.05);
+}
+
+.update__form{
+    width: 90%;
+}
+.update__form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.update__form form label{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.update__form form label input,
+.update__form form label textarea{
+    width: 90%;
+    padding: 5px;
 }
 
 @media screen {
