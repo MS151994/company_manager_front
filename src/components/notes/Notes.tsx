@@ -1,7 +1,31 @@
-import './notes.css'
 import {FormButton} from "../commons/buttons/FormButon";
+import {OneNote} from "./OneNote/OneNote";
+import {useEffect, useState} from "react";
+import {config} from "../config/config";
+import {Spinner} from "../commons/Spinner/Spinner";
+import {NotesInterface} from 'types';
+import {useCookies} from "react-cookie";
+
+import './notes.css';
 
 export const Notes = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [notes, setNotes] = useState<NotesInterface[]>([]);
+    const [cookie, setCookie] = useCookies(['user']);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                setLoading(true);
+                const res = await fetch(`${config.api}/notes/${cookie.user}`);
+                const notes = await res.json();
+                await setNotes(notes)
+                console.log(notes)
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, [])
     return (
         <div className="notes__container">
             <div className="page_title">
@@ -19,81 +43,17 @@ export const Notes = () => {
                 </form>
             </div>
             <div className="notes__box">
-                <div className="one_note">
-                    <div>
-                        <p>title text</p>
-                        <p className={"text_box"}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                            dolorum id itaque magni neque? Aliquid dignissimos fugit id, inventore laborum magni numquam
-                            pariatur quisquam ratione repudiandae, sequi sint temporibus, voluptatem?</p>
-                    </div>
-                    <div className="buttons_box">
-                        <button>🗑️</button>
-                        <button>✏️</button>
-                        <button>📋</button>
-                        <button>⭐</button>
-                    </div>
-                </div>
-            </div>
-            <div className="notes__box">
-                <div className="one_note">
-                    <div>
-                        <p>title text</p>
-                        <p className={"text_box"}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                            dolorum id itaque magni neque? Aliquid dignissimos fugit id, inventore laborum magni numquam
-                            pariatur quisquam ratione repudiandae, sequi sint temporibus, voluptatem?</p>
-                    </div>
-                    <div className="buttons_box">
-                        <button>🗑️</button>
-                        <button>✏️</button>
-                        <button>📋</button>
-                        <button>⭐</button>
-                    </div>
-                </div>
-            </div>
-            <div className="notes__box">
-                <div className="one_note">
-                    <div>
-                        <p>title text</p>
-                        <p className={"text_box"}>Lorem t temporibus, voluptatem?</p>
-                    </div>
-                    <div className="buttons_box">
-                        <button>🗑️</button>
-                        <button>✏️</button>
-                        <button>📋</button>
-                        <button>⭐</button>
-                    </div>
-                </div>
-            </div>
-            <div className="notes__box">
-                <div className="one_note">
-                    <div>
-                        <p>title text</p>
-                        <p className={"text_box"}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                            dolorum id itaque minventore laborum magni numquam
-                            pariatur quisquam  temporibus, voluptatem?</p>
-                    </div>
-                    <div className="buttons_box">
-                        <button>🗑️</button>
-                        <button>✏️</button>
-                        <button>📋</button>
-                        <button>⭐</button>
-                    </div>
-                </div>
-            </div>
-            <div className="notes__box">
-                <div className="one_note">
-                    <div>
-                        <p>title text</p>
-                        <p className={"text_box"}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                            dolorum id itaque magni ribus, voluptatem?</p>
-                    </div>
-                    <div className="buttons_box">
-                        <button>🗑️</button>
-                        <button>✏️</button>
-                        <button>📋</button>
-                        <button>⭐</button>
-                    </div>
-                </div>
+                {loading && <Spinner/>}
+                {notes.map((note: NotesInterface) =>
+                    <OneNote
+                        key={note.id}
+                        id={note.id}
+                        title={note.title}
+                        text={note.text}
+                        createdAt={note.createdAt}
+                        userId={note.userId}
+                        isImportant={note.isImportant}
+                    />)}
             </div>
         </div>
     )

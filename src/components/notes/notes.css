@@ -20,6 +20,9 @@
     align-items: center;
     width: 100%;
 }
+.notes__box{
+    flex-direction: column;
+}
 
 .add_new_note form {
     display: flex;
@@ -44,19 +47,10 @@
     width: 100%;
 }
 
-.one_note {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    min-height: 50px;
-    margin: 0 auto;
-    padding: 5px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.text_box{
-    font-size: 0.8rem;
-    color: rgba(0,0,0,0.7);
-    font-style: italic;
+@media (min-width: 1024px) {
+    .add_new_note,
+    .notes__box {
+        width: 50%;
+        margin: 0 auto;
+    }
 }
