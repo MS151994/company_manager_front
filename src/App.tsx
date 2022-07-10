@@ -6,6 +6,7 @@ import {UserRegistration} from "./components/usersForm/UserRegistration";
 import {Notes} from "./components/notes/Notes";
 import {UserLogin} from "./components/usersForm/UserLogin";
 import {Menu} from "./components/commons/Menu/Menu";
+import {Todos} from "./components/todos/todos";
 
 export const App = () => {
     const [cookie, setCookie] = useCookies(['user']);
@@ -19,6 +20,8 @@ export const App = () => {
                     <Route path="/user/registration" element={<UserRegistration/>}/>
                     <Route path="/notes"
                            element={(cookie.user && cookie.user !== "undefined") ? <Notes/> : <UserLogin/>}/>
+                    <Route path="/todos"
+                           element={(cookie.user && cookie.user !== "undefined") ? <Todos/> : <UserLogin/>}/>
                 </Routes>
             </CookiesProvider>
         </div>

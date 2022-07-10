@@ -15,6 +15,7 @@ export const Menu = () => {
             <ul>
                 <NavLink to={'/'}>Home</NavLink>
                 <NavLink to={'/notes'}>Notes</NavLink>
+                <NavLink to={'/todos'}>todos</NavLink>
             </ul>
             <div className={'menu__features'}>
                 <p>Features div</p>
