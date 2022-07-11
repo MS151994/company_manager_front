@@ -1,10 +1,40 @@
 import {TodosInterface} from 'types';
-import './oneTodo.css';
+import {config} from "../../config/config";
 
+import './oneTodo.css';
 
 export const OneTodo = (props: TodosInterface) => {
     const createdDate = new Date(props.createdAt);
     const deadlineDate = new Date(props.deadline);
+
+    const handleChangeStatus = () => {
+        try {
+            const res = fetch(`${config.api}/todos/${props.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    isActive: "0",
+                })
+            })
+        } finally {
+            window.location.reload();
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const res = await fetch(`${config.api}/todos/${props.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+        } finally {
+            window.location.reload()
+        }
+    };
 
     return (
         <div className={props.highPriority === "1" ? "oneTodo__container highPriority" : "oneTodo__container"}>
@@ -19,7 +49,9 @@ export const OneTodo = (props: TodosInterface) => {
                     <p>deadline: {deadlineDate.toLocaleDateString()}</p>
                 </div>
             </div>
-            <button className={'done_button'}>✅</button>
+            {props.isActive === "1"
+                ? <button className={'done_button'} onClick={handleChangeStatus}>✅</button>
+                : <button className={'done_button'} onClick={handleDelete}>❌</button>}
         </div>
     )
 }
