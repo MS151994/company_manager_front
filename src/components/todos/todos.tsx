@@ -13,6 +13,7 @@ export const Todos = () => {
     const [todos, setTodos] = useState<TodosInterface[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [cookie, setCookie] = useCookies(['user'])
+
     useEffect(() => {
 
         (async () => {
@@ -37,36 +38,40 @@ export const Todos = () => {
                     <p>Active</p>
                 </div>
                 {loading && <Spinner/>}
-                {todos.map(todo =>
-                    <OneTodo
-                        key={todo.id}
-                        id={todo.id}
-                        title={todo.title}
-                        text={todo.text}
-                        createdAt={todo.createdAt}
-                        deadline={todo.deadline}
-                        highPriority={todo.highPriority}
-                        userId={todo.userId}
-                        isActive={todo.isActive}
-                    />)}
+                {todos
+                    .filter(todo => todo.isActive === "true")
+                    .map(todo =>
+                        <OneTodo
+                            key={todo.id}
+                            id={todo.id}
+                            title={todo.title}
+                            text={todo.text}
+                            createdAt={todo.createdAt}
+                            deadline={todo.deadline}
+                            highPriority={todo.highPriority}
+                            userId={todo.userId}
+                            isActive={todo.isActive}
+                        />)}
             </div>
             <div className="todo__item_box">
                 <div className="todo__separator">
                     <p>done</p>
                 </div>
                 {loading && <Spinner/>}
-                {todos.map(todo =>
-                    <OneTodo
-                        key={todo.id}
-                        id={todo.id}
-                        title={todo.title}
-                        text={todo.text}
-                        createdAt={todo.createdAt}
-                        deadline={todo.deadline}
-                        highPriority={todo.highPriority}
-                        userId={todo.userId}
-                        isActive={todo.isActive}
-                    />)}
+                {todos
+                    .filter(todo => todo.isActive === "false")
+                    .map(todo =>
+                        <OneTodo
+                            key={todo.id}
+                            id={todo.id}
+                            title={todo.title}
+                            text={todo.text}
+                            createdAt={todo.createdAt}
+                            deadline={todo.deadline}
+                            highPriority={todo.highPriority}
+                            userId={todo.userId}
+                            isActive={todo.isActive}
+                        />)}
             </div>
         </div>
     )

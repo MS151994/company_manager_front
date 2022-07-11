@@ -9,7 +9,7 @@ export const OneTodo = (props: TodosInterface) => {
     return (
         <div className={props.highPriority === "1" ? "oneTodo__container highPriority" : "oneTodo__container"}>
             <div className={'oneTodo__box'}>
-                <div className="oneTodo_infoBox">
+                <div className={`oneTodo_infoBox ${props.isActive === "false" ? 'doneText' : ''}`}>
                     <p>{props.title}</p>
                     <p>{props.text}</p>
                 </div>

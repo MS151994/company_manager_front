@@ -38,6 +38,10 @@
     margin-left: 5px;
 }
 
+.doneText {
+    text-decoration: line-through;
+}
+
 .done_button {
     padding: 10px;
     font-size: 1.2rem;
