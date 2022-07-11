@@ -39,7 +39,7 @@ export const Todos = () => {
                 </div>
                 {loading && <Spinner/>}
                 {todos
-                    .filter(todo => todo.isActive === "true")
+                    .filter(todo => todo.isActive === "1")
                     .map(todo =>
                         <OneTodo
                             key={todo.id}
@@ -59,7 +59,7 @@ export const Todos = () => {
                 </div>
                 {loading && <Spinner/>}
                 {todos
-                    .filter(todo => todo.isActive === "false")
+                    .filter(todo => todo.isActive === "0")
                     .map(todo =>
                         <OneTodo
                             key={todo.id}
