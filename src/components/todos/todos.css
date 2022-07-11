@@ -1,10 +1,11 @@
-.todo__item_box{
+.todo__item_box {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.one_todo{
+
+.one_todo {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -15,7 +16,16 @@
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.45);
 }
-.info_box{
+
+.info_box {
     display: flex;
     flex-direction: row;
+}
+
+@media (min-width: 768px) {
+    .add_new_todo,
+    .todo__item_box {
+        width: 50vw;
+        margin: 0 auto;
+    }
 }
