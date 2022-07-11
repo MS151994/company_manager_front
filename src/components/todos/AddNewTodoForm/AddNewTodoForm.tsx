@@ -1,18 +1,21 @@
 import {FormButton} from "../../commons/buttons/FormButon";
-import {useState} from "react";
+import {useCookies} from "react-cookie";
+import {config} from "../../config/config";
+import {SyntheticEvent, useState} from "react";
 
 import './addNewTodoForm.css';
 
-
 export const AddNewTodoForm = () => {
     const minDate = new Date().toISOString().slice(0, 10);
-
-    const [form, setForm] = useState({
+    const initialState = {
         title: '',
         text: '',
         deadline: minDate,
         highPriority: false,
-    })
+    };
+
+    const [cookie, setCookie] = useCookies(['user'])
+    const [form, setForm] = useState(initialState);
 
     const updateForm = (key: string, value: string | boolean) => {
         setForm(form => ({
@@ -21,9 +24,25 @@ export const AddNewTodoForm = () => {
         }))
     };
 
+    const handleSubmit = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        try {
+            const res = await fetch(`${config.api}/todos/${cookie.user}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form)
+            })
+        } finally {
+            setForm(initialState);
+            window.location.reload();
+        }
+    };
+
     return (
         <div className="add_new_todo">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>
                     <input
                         type="text"
