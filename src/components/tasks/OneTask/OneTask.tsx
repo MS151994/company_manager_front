@@ -1,27 +1,43 @@
+import {TaskInterface} from 'types';
 import './onetask.css';
 
-export const OneTask = () => {
+interface UserInfo {
+    userId: string;
+    name: string;
+}
+
+interface Props extends TaskInterface {
+    userInfo: UserInfo[];
+}
+
+export const OneTask = (props: Props) => {
+    const addedDate = new Date(props.createdAt).toLocaleDateString();
+    const deadline = new Date(props.deadline).toLocaleDateString();
+    const username = props.userInfo.find(user => user.userId === props.userId)
+
     return (
-        <div className="task__box">
+        <div className={props.userId ? "task__box" : "task__box notAssign"}>
             <div className="task_title">
-                <p>task 1</p>
-                <p>📆 added at: 12.07.2022, deadline: 12.07.2022</p>
+                <p>{props.title}</p>
+                <p>📆 added at: {addedDate}, deadline: {deadline}</p>
             </div>
             <div className="task_client_id">
-                <p>NIP: <span>8271203340</span></p>
+                <p>NIP: <span>{props.nip}</span></p>
             </div>
             <div className='task_text'>
-                <p>task text more details</p>
+                <p>{props.text}</p>
             </div>
             <div className="task_client_number">
-                <p>Number: <span>123-456-789</span></p>
+                <p>Number: <span>{props.telNumber}</span></p>
             </div>
             <div className="task_assign_person">
-                <p>assign: <span>Person</span></p>
+                <p>assign: <span>{props.userId === null ? "not assign!" : username?.name}</span></p>
             </div>
             <div className="buttons_box">
-                <button>set done</button>
-                <button>assign person</button>
+                {props.userId
+                    ? <button>set done</button>
+                    : <button>take it</button>
+                }
             </div>
         </div>
     )

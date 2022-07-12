@@ -56,6 +56,23 @@
     justify-content: end;
 }
 
+.buttons_box button {
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buttons_box button:hover {
+    border-color: orange;
+}
+
+.notAssign {
+    border-color: red;
+}
+
 @media screen {
     .task__box:hover {
         border-color: orange;
