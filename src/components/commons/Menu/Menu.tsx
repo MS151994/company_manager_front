@@ -19,7 +19,7 @@ export const Menu = () => {
                 <NavLink to={'/tasks'}>task's</NavLink>
             </ul>
             <div className={'menu__features'}>
-                <p>Features div</p>
+                <p>Welcome, <span>{cookie.username}</span></p>
                 <button className={"menu__logOut_button"} onClick={handleLogOut}>log out</button>
             </div>
         </div>

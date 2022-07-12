@@ -64,4 +64,9 @@
     .menu__features p {
         display: block;
     }
+
+    .menu__container p span {
+        text-transform: capitalize;
+        font-weight: bold;
+    }
 }
