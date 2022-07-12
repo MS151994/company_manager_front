@@ -1,0 +1,65 @@
+.task__box {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    margin: 5px auto;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+.task__box div {
+    padding: 5px;
+}
+
+.task_title p:nth-child(1) {
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+}
+
+.task_title p:nth-child(2) {
+    font-size: 0.7rem;
+}
+
+.task_text {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.task_text p {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: lowercase;
+    font-style: italic;
+}
+
+.task_client_id p,
+.task_assign_person p,
+.task_client_number p {
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.task_client_id p span,
+.task_assign_person p span,
+.task_client_number p span {
+    font-weight: 600;
+}
+
+.buttons_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+@media screen {
+    .task__box:hover {
+        border-color: orange;
+        cursor: pointer;
+        box-shadow: 0 15px 15px rgba(0, 0, 0, 0.7);
+    }
+}
