@@ -16,6 +16,7 @@ export const Menu = () => {
                 <NavLink to={'/'}>Home</NavLink>
                 <NavLink to={'/notes'}>Notes</NavLink>
                 <NavLink to={'/todos'}>todos</NavLink>
+                <NavLink to={'/tasks'}>task's</NavLink>
             </ul>
             <div className={'menu__features'}>
                 <p>Features div</p>

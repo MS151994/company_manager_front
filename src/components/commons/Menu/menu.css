@@ -49,6 +49,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 200;
+    color: black;
 }
 
 @media screen and (min-width: 1024px) {
