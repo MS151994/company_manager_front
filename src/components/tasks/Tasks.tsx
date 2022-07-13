@@ -55,6 +55,7 @@ export const Tasks = () => {
                             isDone={task.isDone}
                             userId={task.userId}
                             userInfo={users}
+                            status={task.status}
                         />
                     )}
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {CookiesProvider, useCookies} from "react-cookie";
 import {Route, Routes} from "react-router-dom";
-import {HomePage} from "./components/HomePage";
+import {HomePage} from "./components/HomePage/HomePage";
 import {UserRegistration} from "./components/usersForm/UserRegistration";
 import {Notes} from "./components/notes/Notes";
 import {UserLogin} from "./components/usersForm/UserLogin";
