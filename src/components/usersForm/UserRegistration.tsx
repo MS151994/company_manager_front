@@ -3,16 +3,18 @@ import {FormButton} from "../commons/buttons/FormButon";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {config} from "../config/config";
 import {NavLink} from "react-router-dom";
-
-import './userForm.css'
+import {useToast} from "@chakra-ui/react";
+import './userForm.css';
 
 export const UserRegistration = () => {
-    const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({
+    const toast = useToast();
+    const initialState = {
         name: '',
         password: '',
         confirm_password: '',
-    })
+    };
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState(initialState);
     const [inputError, setInputError] = useState('');
     const [userAddedInfo, setUserAddedInfo] = useState(false);
 
@@ -39,15 +41,21 @@ export const UserRegistration = () => {
                 const data = await res.json();
                 await setInputError(data.message);
                 if (data.message === 'added') {
-                    setForm({
-                        name: '',
-                        password: '',
-                        confirm_password: '',
-                    });
+                    setForm(initialState);
                     setUserAddedInfo(true);
+                    toast({
+                        title: `toast`,
+                        status: 'success',
+                        isClosable: true,
+                    })
                 }
             } else {
                 setInputError('check your password!')
+                toast({
+                    title: 'check your password!',
+                    status: 'warning',
+                    isClosable: true,
+                })
             }
         } finally {
             setLoading(false);

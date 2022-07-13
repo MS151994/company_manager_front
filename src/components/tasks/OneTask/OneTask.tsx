@@ -29,7 +29,10 @@ export const OneTask = (props: Props) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({userId: cookie.user}),
+                body: JSON.stringify({
+                    ...props,
+                    userId: cookie.user,
+                }),
             });
         } finally {
             setLoading(false);

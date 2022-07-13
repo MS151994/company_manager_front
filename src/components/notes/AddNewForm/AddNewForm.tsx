@@ -1,5 +1,5 @@
 import {FormButton} from "../../commons/buttons/FormButon";
-import {SyntheticEvent, useState} from "react";
+import {SyntheticEvent, useRef, useState} from "react";
 import {config} from "../../config/config";
 import {useCookies} from "react-cookie";
 import {Spinner} from "../../commons/Spinner/Spinner";
@@ -16,6 +16,7 @@ export const AddNewForm = () => {
         userId: cookie.user,
     }
     const [form, setForm] = useState(initialState);
+
 
     const updateForm = (key: string, value: string | boolean) => {
         setForm(form => ({
@@ -36,8 +37,7 @@ export const AddNewForm = () => {
                 body: JSON.stringify(form)
             });
             const data = await res.json();
-            setMessage(data.message);
-            window.location.reload();
+            window.location.reload()
         } finally {
             setLoading(false);
             setForm(initialState);

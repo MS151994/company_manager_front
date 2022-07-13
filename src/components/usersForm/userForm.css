@@ -26,6 +26,8 @@
 
 .userForm__container label input {
     width: 90%;
+    border: 1px solid rgba(0,0,0,0.45);
+    border-radius:4px ;
     padding: 10px;
     outline-color: orange;
 }
