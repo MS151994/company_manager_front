@@ -1,8 +1,9 @@
 import {TaskInterface} from 'types';
-import './onetask.css';
 import {config} from "../../config/config";
 import {useCookies} from "react-cookie";
 import {useState} from "react";
+import './onetask.css';
+import {Spinner} from "../../commons/Spinner/Spinner";
 
 interface UserInfo {
     userId: string;
@@ -31,8 +32,39 @@ export const OneTask = (props: Props) => {
                 body: JSON.stringify({userId: cookie.user}),
             });
         } finally {
-            window.location.reload();
             setLoading(false);
+            window.location.reload();
+        }
+    };
+
+    const handleIsDone = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/tasks/isdone/${props.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({isDone: true}),
+            })
+        } finally {
+            setLoading(false);
+            window.location.reload()
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/tasks/${props.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Contetnt-Type": "application/json",
+                }
+            })
+        } finally {
+            setLoading(false)
+            window.location.reload();
         }
     };
 
@@ -56,10 +88,15 @@ export const OneTask = (props: Props) => {
             </div>
             <div className="buttons_box">
                 {props.userId
-                    ? <button>set done</button>
+                    ? <>{props.isDone === "1" ? <button onClick={handleDelete}>delete</button> :
+                        <button onClick={handleIsDone}>set done</button>}</>
                     : <button onClick={handleAssignPerson}>take it</button>
                 }
             </div>
+            <div className="status_box">
+                {props.isDone === "0" ? <p className={'progress'}>in progress</p> : <p className={'done'}>done</p>}
+            </div>
+            {loading && <div className="loading"><Spinner/></div>}
         </div>
     )
 }

@@ -1,4 +1,5 @@
 .task__box {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 95%;
@@ -8,6 +9,37 @@
     margin: 5px auto;
     padding: 5px;
     transition: 0.3s;
+}
+
+.status_box {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.progress,
+.done {
+    background: orange;
+    padding: 3px;
+    border-radius: 4px;
+    color: white;
+}
+
+.done {
+    background: green;
+}
+
+.loading {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+
 }
 
 .task__box div {
