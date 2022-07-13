@@ -23,5 +23,8 @@
     .task__container {
         flex-direction: row;
     }
+    .form__container{
+        width: 300px;
+    }
 
 }

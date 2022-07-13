@@ -5,6 +5,7 @@ import './tasks.css'
 import {useEffect, useState} from "react";
 import {TaskInterface} from "types";
 import {config} from "../config/config";
+import {AddNewTasksForm} from "./AddNewTasksForm/AddNewTasksForm";
 
 export const Tasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
@@ -29,6 +30,7 @@ export const Tasks = () => {
         <>
             <PageTitle pageTitle={"task's"}/>
             <div className="task__container">
+                <AddNewTasksForm/>
                 {tasks.map(task =>
                     <OneTask
                         key={task.id}
