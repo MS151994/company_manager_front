@@ -5,10 +5,10 @@ import {config} from "../../config/config";
 import {Spinner} from "../../commons/Spinner/Spinner";
 
 export const AddNewTasksForm = () => {
-
+    const dt = new Date().toISOString().slice(0, 10);
     const initialState = {
         title: 'other',
-        deadline: new Date().toISOString().slice(0, 10),
+        deadline: dt,
         text: '',
         nip: '',
         telNumber: '',
@@ -68,7 +68,7 @@ export const AddNewTasksForm = () => {
                                 type="date"
                                 required
                                 value={form.deadline}
-                                onChange={(e) => updateForm('date', e.target.value)}
+                                onChange={(e) => updateForm('deadline', e.target.value)}
                             />
                         </label>
                         <label>
