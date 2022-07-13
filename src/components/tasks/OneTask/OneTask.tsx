@@ -1,5 +1,8 @@
 import {TaskInterface} from 'types';
 import './onetask.css';
+import {config} from "../../config/config";
+import {useCookies} from "react-cookie";
+import {useState} from "react";
 
 interface UserInfo {
     userId: string;
@@ -14,6 +17,24 @@ export const OneTask = (props: Props) => {
     const addedDate = new Date(props.createdAt).toLocaleDateString();
     const deadline = new Date(props.deadline).toLocaleDateString();
     const username = props.userInfo.find(user => user.userId === props.userId)
+    const [cookie, setCookie] = useCookies(['user']);
+    const [loading, setLoading] = useState<boolean>(false)
+
+    const handleAssignPerson = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/tasks/one/${props.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({userId: cookie.user}),
+            });
+        } finally {
+            window.location.reload();
+            setLoading(false);
+        }
+    };
 
     return (
         <div className={props.userId ? "task__box" : "task__box notAssign"}>
@@ -36,7 +57,7 @@ export const OneTask = (props: Props) => {
             <div className="buttons_box">
                 {props.userId
                     ? <button>set done</button>
-                    : <button>take it</button>
+                    : <button onClick={handleAssignPerson}>take it</button>
                 }
             </div>
         </div>
