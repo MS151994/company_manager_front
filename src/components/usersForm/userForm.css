@@ -26,10 +26,31 @@
 
 .userForm__container label input {
     width: 90%;
-    border: 1px solid rgba(0,0,0,0.45);
-    border-radius:4px ;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
     padding: 10px;
     outline-color: orange;
+    transition: 0.3s;
+}
+
+.userForm__container label input:focus {
+    width: 55%;
+    outline-color: orange;
+}
+
+.login_button {
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    padding: 2px 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 200;
+    transition: 0.3s;
+}
+
+.login_button:hover {
+    background: orange;
+    color: white;
 }
 
 .errorMsg,
@@ -38,6 +59,7 @@
     color: red;
     font-style: italic;
     padding: 3px;
+    margin-bottom: 10px;
 }
 
 .account_info {
@@ -45,6 +67,14 @@
     font-size: 1.1rem;
     color: black;
 }
+
+.title,
+.success {
+    font-size: 2rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+}
+
 
 @media (min-width: 768px)  and (orientation: landscape) {
     .userForm__container {

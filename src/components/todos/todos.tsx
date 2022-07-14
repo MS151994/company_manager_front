@@ -6,16 +6,16 @@ import {config} from "../config/config";
 import {useCookies} from "react-cookie";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {OneTodo} from "./OneTodo/OneTodo";
-
+import {useToast} from "@chakra-ui/react";
 import './todos.css';
 
 export const Todos = () => {
     const [todos, setTodos] = useState<TodosInterface[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [cookie, setCookie] = useCookies(['user'])
+    const [cookie, setCookie] = useCookies(['user']);
+    const toast = useToast();
 
     useEffect(() => {
-
         (async () => {
             try {
                 setLoading(true);
@@ -24,14 +24,19 @@ export const Todos = () => {
                 await setTodos(data);
             } finally {
                 setLoading(false);
+                toast({
+                    title: `Everything has been loaded!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
             }
         })();
-
     }, [])
 
     return (
         <div className={'todos__container'}>
-            <PageTitle pageTitle={"my todo's"}/>
+            <PageTitle pageTitle={"my todo's"} itemsLength={todos.length}/>
             <AddNewTodoForm/>
             <div className="todo__item_box">
                 <div className="todo__separator">

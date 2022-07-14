@@ -56,14 +56,15 @@ export const OneTask = (props: Props) => {
         }
     };
 
-    const handleDelete = async () => {
+    const handleSetArchive = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`${config.api}/tasks/${props.id}`, {
-                method: "DELETE",
+            const res = await fetch(`${config.api}/tasks/setarchive/${props.id}`, {
+                method: "PATCH",
                 headers: {
-                    "Contetnt-Type": "application/json",
-                }
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({status: 'archive'})
             })
         } finally {
             setLoading(false)
@@ -91,7 +92,7 @@ export const OneTask = (props: Props) => {
             </div>
             <div className="buttons_box">
                 {props.userId
-                    ? <>{props.isDone === "1" ? <button onClick={handleDelete}>delete</button> :
+                    ? <>{props.isDone === "1" ? <button onClick={handleSetArchive}>Archive</button> :
                         <button onClick={handleIsDone}>set done</button>}</>
                     : <button onClick={handleAssignPerson}>take it</button>
                 }

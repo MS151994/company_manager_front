@@ -47,15 +47,15 @@ export const UserRegistration = () => {
                         title: `toast`,
                         status: 'success',
                         isClosable: true,
-                    })
+                    });
                 }
             } else {
-                setInputError('check your password!')
+                setInputError('check your password!');
                 toast({
                     title: 'check your password!',
                     status: 'warning',
                     isClosable: true,
-                })
+                });
             }
         } finally {
             setLoading(false);
@@ -66,7 +66,7 @@ export const UserRegistration = () => {
         <form className={"userForm__container"} onSubmit={handleRegister}>
             {!userAddedInfo ?
                 <>
-                    <h1>Sing up</h1>
+                    <h1 className={'title'}>Sing up</h1>
                     <label>
                         <input
                             type="text"
@@ -103,8 +103,9 @@ export const UserRegistration = () => {
                 </>
                 :
                 <>
-                    <p>Congratulation!</p>
-                    <p className={'account_info'}>please <NavLink to={'/'}>login</NavLink>.</p>
+                    <p className={'success'}>Congratulation! Account Created!</p>
+                    <p className={'account_info'}>please login.</p>
+                    <p><NavLink className={'login_button'} to={'/'}>login</NavLink></p>
                 </>
             }
         </form>

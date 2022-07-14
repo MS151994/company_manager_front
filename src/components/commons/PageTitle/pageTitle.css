@@ -5,3 +5,8 @@
     padding: 5px;
     font-size: 2rem;
 }
+
+.page_title span {
+    font-size: 1.2rem;
+    font-style: italic;
+}

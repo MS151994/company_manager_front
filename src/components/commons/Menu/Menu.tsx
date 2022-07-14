@@ -17,6 +17,7 @@ export const Menu = () => {
                 <NavLink to={'/notes'}>Notes</NavLink>
                 <NavLink to={'/todos'}>todos</NavLink>
                 <NavLink to={'/tasks'}>task's</NavLink>
+                <NavLink to={'/archive'}>archive</NavLink>
             </ul>
             <div className={'menu__features'}>
                 <p>Welcome, <span>{cookie.username}</span></p>

@@ -4,14 +4,15 @@ import {useEffect, useState} from "react";
 import {TaskInterface} from "types";
 import {config} from "../config/config";
 import {AddNewTasksForm} from "./AddNewTasksForm/AddNewTasksForm";
-import './tasks.css'
+import {useToast} from "@chakra-ui/react";
+import './tasks.css';
 
 export const Tasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-
-    const [filter, setFilter] = useState('all')
+    const [filter, setFilter] = useState<string>('all');
+    const toast = useToast();
 
     useEffect(() => {
         (async () => {
@@ -23,13 +24,19 @@ export const Tasks = () => {
                 setUsers(tasksList[1])
             } finally {
                 setLoading(false);
+                toast({
+                    title: `Everything has been loaded!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
             }
         })();
     }, [])
 
     return (
         <>
-            <PageTitle pageTitle={"task's"}/>
+            <PageTitle pageTitle={"task's"} itemsLength={tasks.length}/>
             <div className={'selected_filter'}>
                 filter by:
                 <select name="" id="" value={filter} onChange={(e) => setFilter(e.target.value)}>

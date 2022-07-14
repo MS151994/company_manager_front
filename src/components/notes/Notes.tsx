@@ -6,12 +6,14 @@ import {NotesInterface} from 'types';
 import {useCookies} from "react-cookie";
 import {AddNewForm} from "./AddNewForm/AddNewForm";
 import {PageTitle} from "../commons/PageTitle/PageTitle";
+import {useToast} from "@chakra-ui/react";
 import './notes.css';
 
 export const Notes = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [notes, setNotes] = useState<NotesInterface[]>([]);
     const [cookie, setCookie] = useCookies(['user']);
+    const toast = useToast();
 
     useEffect(() => {
         (async () => {
@@ -22,13 +24,19 @@ export const Notes = () => {
                 await setNotes(notes)
             } finally {
                 setLoading(false);
+                toast({
+                    title: `Everything has been loaded!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
             }
         })();
     }, []);
 
     return (
         <div className="notes__container">
-            <PageTitle pageTitle={"notes page"}/>
+            <PageTitle pageTitle={"notes page"} itemsLength={notes.length}/>
             <AddNewForm/>
             <div className="notes__box">
                 {loading && <Spinner/>}
