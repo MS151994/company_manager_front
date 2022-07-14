@@ -3,8 +3,13 @@ import {FormButton} from "../../commons/buttons/FormButon";
 import {SyntheticEvent, useState} from "react";
 import {config} from "../../config/config";
 import {Spinner} from "../../commons/Spinner/Spinner";
+import {useToast} from "@chakra-ui/react";
 
-export const AddNewTasksForm = () => {
+interface Props {
+    onTasksChange: () => void;
+}
+
+export const AddNewTasksForm = (props: Props) => {
     const dt = new Date().toISOString().slice(0, 10);
     const initialState = {
         title: 'other',
@@ -12,11 +17,12 @@ export const AddNewTasksForm = () => {
         text: '',
         nip: '',
         telNumber: '',
-    }
+    };
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const [form, setForm] = useState(initialState)
+    const [form, setForm] = useState(initialState);
+    const toast = useToast();
 
     const updateForm = (key: string, value: string) => {
         setForm(form => ({
@@ -36,13 +42,19 @@ export const AddNewTasksForm = () => {
                 },
                 body: JSON.stringify(form),
             });
-            const data = await res.json();
-            if (data.message === 'ok') {
-                window.location.reload();
+            if (res.status === 200) {
+                toast({
+                    title: `Everything has been loaded!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
             }
         } finally {
             setLoading(false);
             setForm(initialState);
+            setIsOpen(false);
+            await props.onTasksChange();
         }
     };
 

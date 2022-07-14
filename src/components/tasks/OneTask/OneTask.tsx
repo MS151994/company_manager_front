@@ -2,8 +2,9 @@ import {TaskInterface} from 'types';
 import {config} from "../../config/config";
 import {useCookies} from "react-cookie";
 import {useState} from "react";
-import './onetask.css';
 import {Spinner} from "../../commons/Spinner/Spinner";
+import './onetask.css';
+import {useToast} from "@chakra-ui/react";
 
 interface UserInfo {
     userId: string;
@@ -12,6 +13,7 @@ interface UserInfo {
 
 interface Props extends TaskInterface {
     userInfo: UserInfo[];
+    onTasksChange: () => void;
 }
 
 export const OneTask = (props: Props) => {
@@ -20,6 +22,7 @@ export const OneTask = (props: Props) => {
     const username = props.userInfo.find(user => user.userId === props.userId)
     const [cookie, setCookie] = useCookies(['user']);
     const [loading, setLoading] = useState<boolean>(false)
+    const toast = useToast();
 
     const handleAssignPerson = async () => {
         try {
@@ -34,9 +37,17 @@ export const OneTask = (props: Props) => {
                     userId: cookie.user,
                 }),
             });
+            if (res.status === 200) {
+                toast({
+                    title: `Assigned person!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
             setLoading(false);
-            window.location.reload();
+            await props.onTasksChange();
         }
     };
 
@@ -50,9 +61,17 @@ export const OneTask = (props: Props) => {
                 },
                 body: JSON.stringify({isDone: true}),
             })
+            if (res.status === 200) {
+                toast({
+                    title: `Task is done!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
             setLoading(false);
-            window.location.reload()
+            await props.onTasksChange();
         }
     };
 
@@ -66,9 +85,17 @@ export const OneTask = (props: Props) => {
                 },
                 body: JSON.stringify({status: 'archive'})
             })
+            if (res.status === 200) {
+                toast({
+                    title: `Task added to archive tab!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
             setLoading(false)
-            window.location.reload();
+            await props.onTasksChange();
         }
     };
 

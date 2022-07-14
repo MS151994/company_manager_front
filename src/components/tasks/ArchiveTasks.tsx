@@ -11,23 +11,26 @@ export const ArchiveTasks = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const toast = useToast();
 
+    const refreshArchive = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/tasks/archive`)
+            const tasksList = await res.json();
+            setTasks(tasksList);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        (async () => {
-            try {
-                setLoading(true);
-                const res = await fetch(`${config.api}/tasks/archive`)
-                const tasksList = await res.json();
-                setTasks(tasksList);
-            } finally {
-                setLoading(false);
-                toast({
-                    title: `Everything has been loaded!`,
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                });
-            }
-        })();
+        refreshArchive().then(() =>
+            toast({
+                title: `Everything has been loaded!`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            })
+        );
     }, [])
 
     const handleDelete = async (id: string) => {
@@ -39,9 +42,17 @@ export const ArchiveTasks = () => {
                     "Content-Type": "application/json",
                 }
             })
+            if (res.status === 200) {
+                toast({
+                    title: `Tasks has been deleted!`,
+                    status: 'warning',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
             setLoading(false)
-            window.location.reload();
+            await refreshArchive();
         }
     };
 

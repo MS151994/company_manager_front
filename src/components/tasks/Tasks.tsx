@@ -14,24 +14,27 @@ export const Tasks = () => {
     const [filter, setFilter] = useState<string>('all');
     const toast = useToast();
 
+    const refreshTasks = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/tasks`)
+            const tasksList = await res.json();
+            setTasks(tasksList[0]);
+            setUsers(tasksList[1])
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        (async () => {
-            try {
-                setLoading(true);
-                const res = await fetch(`${config.api}/tasks`)
-                const tasksList = await res.json();
-                setTasks(tasksList[0]);
-                setUsers(tasksList[1])
-            } finally {
-                setLoading(false);
-                toast({
-                    title: `Everything has been loaded!`,
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                });
-            }
-        })();
+        refreshTasks().then(() =>
+            toast({
+                title: `Everything has been loaded!`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            })
+        );
     }, [])
 
     return (
@@ -46,7 +49,7 @@ export const Tasks = () => {
                 </select>
             </div>
             <div className="task__container">
-                <AddNewTasksForm/>
+                <AddNewTasksForm onTasksChange={refreshTasks}/>
                 {tasks
                     .filter(task => task.isDone !== filter)
                     .map(task =>
@@ -63,6 +66,7 @@ export const Tasks = () => {
                             userId={task.userId}
                             userInfo={users}
                             status={task.status}
+                            onTasksChange={refreshTasks}
                         />
                     )}
             </div>
