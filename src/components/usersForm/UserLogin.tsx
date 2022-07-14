@@ -4,8 +4,8 @@ import {config} from "../config/config";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {FormButton} from "../commons/buttons/FormButon";
+import {useToast} from "@chakra-ui/react";
 import './userForm.css';
-
 
 export const UserLogin = () => {
     const [cookie, setCookie] = useCookies<string>(['user', 'username']);
@@ -14,14 +14,14 @@ export const UserLogin = () => {
         name: '',
         password: '',
     });
-    const [message, setMessage] = useState('');
+    const toast = useToast();
 
     const updateForm = (key: string, value: string) => {
         setForm(form => ({
             ...form,
             [key]: value.toLowerCase()
         }));
-    }
+    };
 
     const handleLogin = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -33,14 +33,36 @@ export const UserLogin = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(form)
-            })
-            const data = await res.json();
-            if (data.message) {
-                setMessage(data.message);
+            });
+            const user = await res.json();
+
+            if (res.status === 404) {
+                toast({
+                    title: `User not found`,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
             }
-            setCookie('user', data.id, {path: '/'});
-            setCookie('username', data.name, {path: '/'});
-            window.location.reload();
+            if (res.status === 401) {
+                toast({
+                    title: `Unauthorized! Wrong password`,
+                    status: 'warning',
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
+            if (res.status === 200) {
+                toast({
+                    title: `Login, user: ${cookie.username}`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
+                setCookie('user', user.id, {path: '/'});
+                setCookie('username', user.name, {path: '/'});
+                window.location.reload();
+            }
         } finally {
             setLoading(false);
         }
@@ -49,7 +71,6 @@ export const UserLogin = () => {
     return (
         <form className={"userForm__container"} onSubmit={handleLogin}>
             <h1 className={'title'}>Sign in</h1>
-            {message && <p>{message}</p>}
             <label>
                 <input
                     type="text"

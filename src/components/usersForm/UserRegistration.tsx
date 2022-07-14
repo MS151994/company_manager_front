@@ -40,11 +40,11 @@ export const UserRegistration = () => {
                 });
                 const data = await res.json();
                 await setInputError(data.message);
-                if (data.message === 'added') {
+                if (res.status === 201) {
                     setForm(initialState);
                     setUserAddedInfo(true);
                     toast({
-                        title: `toast`,
+                        title: `Success, your account has been created!`,
                         status: 'success',
                         isClosable: true,
                     });
