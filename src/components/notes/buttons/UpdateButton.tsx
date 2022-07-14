@@ -1,11 +1,15 @@
 import {config} from "../../config/config";
+import {useToast} from "@chakra-ui/react";
 
 interface Props {
     noteId: string;
     isImportant: boolean | string;
+    onNotesChange: () => void;
 }
 
 export const UpdateButton = (props: Props) => {
+    const toast = useToast();
+
     const handleAddImportant = async () => {
         try {
             const res = await fetch(`${config.api}/notes/one/${props.noteId}`, {
@@ -17,8 +21,16 @@ export const UpdateButton = (props: Props) => {
                     isImportant: props.isImportant === "0" ? "1" : "0",
                 })
             })
+            if (res.status === 200) {
+                toast({
+                    title: `success! Note has been updated!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
-            window.location.reload();
+            props.onNotesChange();
         }
     };
     return (

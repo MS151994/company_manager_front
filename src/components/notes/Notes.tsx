@@ -15,29 +15,32 @@ export const Notes = () => {
     const [cookie, setCookie] = useCookies(['user']);
     const toast = useToast();
 
+    const refreshNotes = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/notes/${cookie.user}`);
+            const notes = await res.json();
+            await setNotes(notes)
+        } finally {
+            setLoading(false);
+
+        }
+    }
     useEffect(() => {
-        (async () => {
-            try {
-                setLoading(true);
-                const res = await fetch(`${config.api}/notes/${cookie.user}`);
-                const notes = await res.json();
-                await setNotes(notes)
-            } finally {
-                setLoading(false);
-                toast({
-                    title: `Everything has been loaded!`,
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                });
-            }
-        })();
+        refreshNotes().then(() =>
+            toast({
+                title: `Everything has been loaded!`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            })
+        );
     }, []);
 
     return (
         <div className="notes__container">
             <PageTitle pageTitle={"notes page"} itemsLength={notes.length}/>
-            <AddNewForm/>
+            <AddNewForm onTodosChange={refreshNotes}/>
             <div className="notes__box">
                 {loading && <Spinner/>}
                 {notes.map((note: NotesInterface) =>
@@ -49,6 +52,7 @@ export const Notes = () => {
                         createdAt={note.createdAt}
                         userId={note.userId}
                         isImportant={note.isImportant}
+                        onNotesChange={refreshNotes}
                     />)}
             </div>
         </div>

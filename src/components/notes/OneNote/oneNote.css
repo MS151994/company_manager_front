@@ -61,6 +61,12 @@
 .update__form form label textarea{
     width: 90%;
     padding: 5px;
+    border: 1px solid rgba(0,0,0,0.45);
+    border-radius: 4px;
+}
+.update__form form label input:focus,
+.update__form form label textarea:focus{
+    outline-color: orange;
 }
 
 @media screen {

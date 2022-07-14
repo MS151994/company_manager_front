@@ -1,14 +1,18 @@
 import {FormButton} from "../../commons/buttons/FormButon";
-import {SyntheticEvent, useRef, useState} from "react";
-import {config} from "../../config/config";
 import {useCookies} from "react-cookie";
 import {Spinner} from "../../commons/Spinner/Spinner";
+import {useToast} from "@chakra-ui/react";
+import {SyntheticEvent, useState} from "react";
+import {config} from "../../config/config";
 import './addNewForm.css';
 
-export const AddNewForm = () => {
+interface Props {
+    onTodosChange: () => void;
+}
+
+export const AddNewForm = (props: Props) => {
     const [cookie, setCookie] = useCookies(['user']);
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('')
     const initialState = {
         title: '',
         text: '',
@@ -16,6 +20,7 @@ export const AddNewForm = () => {
         userId: cookie.user,
     }
     const [form, setForm] = useState(initialState);
+    const toast = useToast();
 
 
     const updateForm = (key: string, value: string | boolean) => {
@@ -36,11 +41,18 @@ export const AddNewForm = () => {
                 },
                 body: JSON.stringify(form)
             });
-            const data = await res.json();
-            window.location.reload()
+            if (res.status === 200) {
+                toast({
+                    title: `Added new note!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
             setLoading(false);
             setForm(initialState);
+            props.onTodosChange();
         }
     };
 
@@ -77,7 +89,6 @@ export const AddNewForm = () => {
                     />
                 </label>
                 {loading ? <Spinner/> : <FormButton buttonName={'add note'}/>}
-                {message !== '' ? <p>{message}</p> : null}
             </form>
         </div>
     )

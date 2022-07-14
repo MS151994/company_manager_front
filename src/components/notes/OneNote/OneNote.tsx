@@ -5,9 +5,11 @@ import {FormButton} from "../../commons/buttons/FormButon";
 import {config} from "../../config/config";
 import {DeleteButton} from "../buttons/DeleteButton";
 import './oneNote.css';
+import {useToast} from "@chakra-ui/react";
 
 interface Props extends Omit<NotesInterface, 'isImportant'> {
     isImportant: boolean | string;
+    onNotesChange: () => void;
 }
 
 export const OneNote = (props: Props) => {
@@ -17,7 +19,8 @@ export const OneNote = (props: Props) => {
         title: props.title,
         text: props.text,
         isImportant: props.isImportant,
-    })
+    });
+    const toast = useToast();
 
     const handleEdit = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -29,8 +32,18 @@ export const OneNote = (props: Props) => {
                 },
                 body: JSON.stringify(form)
             })
+            if (res.status === 200) {
+                toast({
+                    title: `Note updated!`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
+
         } finally {
-            window.location.reload();
+            setEditMode(false);
+            await props.onNotesChange();
         }
     }
 
@@ -43,7 +56,6 @@ export const OneNote = (props: Props) => {
 
     return (
         <div className={props.isImportant === '1' ? "one_note important" : "one_note"}>
-
             {!editMode
                 ? <>
                     <div>
@@ -54,9 +66,16 @@ export const OneNote = (props: Props) => {
                         <p className={"text_box"}>{props.text}</p>
                     </div>
                     <div className="buttons_box">
-                        <DeleteButton noteId={props.id}/>
+                        <DeleteButton
+                            noteId={props.id}
+                            onNotesChange={props.onNotesChange}
+                        />
                         <button onClick={() => setEditMode(!editMode)}>✏️</button>
-                        <UpdateButton noteId={props.id} isImportant={props.isImportant}/>
+                        <UpdateButton
+                            noteId={props.id}
+                            isImportant={props.isImportant}
+                            onNotesChange={props.onNotesChange}
+                        />
                     </div>
                 </>
                 : <>
