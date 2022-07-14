@@ -13,6 +13,12 @@
     text-transform: uppercase;
 }
 
+.todo__separator span {
+    font-size: 1rem;
+    font-style: italic;
+    text-transform: lowercase;
+}
+
 @media (min-width: 768px) {
     .add_new_todo,
     .todo__item_box {

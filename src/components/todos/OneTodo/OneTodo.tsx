@@ -1,15 +1,20 @@
 import {TodosInterface} from 'types';
 import {config} from "../../config/config";
-
+import {useToast} from "@chakra-ui/react";
 import './oneTodo.css';
 
-export const OneTodo = (props: TodosInterface) => {
+interface Props extends TodosInterface {
+    onTodosChange: () => void;
+}
+
+export const OneTodo = (props: Props) => {
     const createdDate = new Date(props.createdAt);
     const deadlineDate = new Date(props.deadline);
+    const toast = useToast();
 
-    const handleChangeStatus = () => {
+    const handleChangeStatus = async () => {
         try {
-            const res = fetch(`${config.api}/todos/${props.id}`, {
+            const res = await fetch(`${config.api}/todos/${props.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -19,7 +24,7 @@ export const OneTodo = (props: TodosInterface) => {
                 })
             })
         } finally {
-            window.location.reload();
+            await props.onTodosChange();
         }
     };
 
@@ -31,10 +36,18 @@ export const OneTodo = (props: TodosInterface) => {
                     "Content-Type": "application/json",
                 }
             })
+            if (res.status === 200) {
+                toast({
+                    title: `task has been removed!`,
+                    status: 'warning',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } finally {
-            window.location.reload()
+            await props.onTodosChange();
         }
-    };
+    }
 
     return (
         <div className={props.highPriority === "1" ? "oneTodo__container highPriority" : "oneTodo__container"}>

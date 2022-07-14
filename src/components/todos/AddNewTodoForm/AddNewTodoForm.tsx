@@ -2,10 +2,13 @@ import {FormButton} from "../../commons/buttons/FormButon";
 import {useCookies} from "react-cookie";
 import {config} from "../../config/config";
 import {SyntheticEvent, useState} from "react";
-
 import './addNewTodoForm.css';
 
-export const AddNewTodoForm = () => {
+interface Props {
+    onTodosChange: () => Promise<void>;
+}
+
+export const AddNewTodoForm = (props: Props) => {
     const minDate = new Date().toISOString().slice(0, 10);
     const initialState = {
         title: '',
@@ -36,7 +39,7 @@ export const AddNewTodoForm = () => {
             })
         } finally {
             setForm(initialState);
-            window.location.reload();
+            await props.onTodosChange();
         }
     };
 
