@@ -1,11 +1,12 @@
 import {PageTitle} from "../commons/PageTitle/PageTitle";
-import './homePage.css'
 import {useEffect, useState} from "react";
 import {config} from "../config/config";
 import {useCookies} from "react-cookie";
 import {SimpleInfoTask} from "types";
 import {OneItem} from "./OneItem/OneItem";
 import {useToast} from "@chakra-ui/react";
+
+import './homePage.css'
 
 export const HomePage = () => {
 
@@ -14,27 +15,26 @@ export const HomePage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const toast = useToast();
 
+    const refreshTasks = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch(`${config.api}/home/${cookie.user}`);
+            const data = await res.json();
+            await setTasks(data);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-
-        (async () => {
-
-            try {
-                setLoading(true);
-                const res = await fetch(`${config.api}/home/${cookie.user}`);
-                const data = await res.json();
-                await setTasks(data);
-
-            } finally {
-                setLoading(false);
-                toast({
-                    title: `Everything has been loaded!`,
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                })
-            }
-        })();
-
+        refreshTasks().then(() =>
+            toast({
+                title: `Everything has been loaded!`,
+                status: 'info',
+                duration: 3000,
+                isClosable: true,
+            })
+        );
     }, [])
 
     return (
