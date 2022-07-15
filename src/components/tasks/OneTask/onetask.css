@@ -17,11 +17,17 @@
     right: 0;
 }
 
+.waiting,
 .progress,
 .done {
     background: orange;
     padding: 3px;
     border-radius: 4px;
+    color: white;
+}
+
+.waiting {
+    background: red;
     color: white;
 }
 

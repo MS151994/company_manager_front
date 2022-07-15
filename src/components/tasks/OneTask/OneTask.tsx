@@ -1,10 +1,10 @@
-import {TaskInterface} from 'types';
-import {config} from "../../config/config";
 import {useCookies} from "react-cookie";
 import {useState} from "react";
 import {Spinner} from "../../commons/Spinner/Spinner";
-import './onetask.css';
 import {useToast} from "@chakra-ui/react";
+import {TaskInterface} from 'types';
+import {config} from "../../config/config";
+import './onetask.css';
 
 interface UserInfo {
     userId: string;
@@ -39,7 +39,7 @@ export const OneTask = (props: Props) => {
             });
             if (res.status === 200) {
                 toast({
-                    title: `Assigned person!`,
+                    title: `Assigned person! Created personal ToDo`,
                     status: 'success',
                     duration: 3000,
                     isClosable: true,
@@ -119,13 +119,22 @@ export const OneTask = (props: Props) => {
             </div>
             <div className="buttons_box">
                 {props.userId
-                    ? <>{props.isDone === "1" ? <button onClick={handleSetArchive}>Archive</button> :
-                        <button onClick={handleIsDone}>set done</button>}</>
+                    ? <>{props.isDone === "1"
+                        ? <button onClick={handleSetArchive}>Archive</button>
+                        : <button onClick={handleIsDone}>set done</button>
+                    }</>
                     : <button onClick={handleAssignPerson}>take it</button>
                 }
             </div>
             <div className="status_box">
-                {props.isDone === "0" ? <p className={'progress'}>in progress</p> : <p className={'done'}>done</p>}
+                {props.userId === null
+                    ? <p className={'waiting'}>waiting</p>
+                    : <>
+                        {props.isDone === "0"
+                            ? <p className={'progress'}>in progress</p>
+                            : <p className={'done'}>done</p>
+                        }
+                    </>}
             </div>
             {loading && <div className="loading"><Spinner/></div>}
         </div>
