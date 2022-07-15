@@ -9,7 +9,10 @@
     width: 90%;
     margin-bottom: 50px;
 }
-
+.spinner_box{
+    width: 100%;
+    text-align: center;
+}
 .container_title {
     font-size: 1.7rem;
     font-weight: 200;

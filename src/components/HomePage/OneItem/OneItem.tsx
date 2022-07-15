@@ -1,6 +1,6 @@
 import {SimpleInfoTask} from "types";
-import './oneItem.css';
 import {NavLink} from "react-router-dom";
+import './oneItem.css';
 
 interface Props extends SimpleInfoTask {
     isDone?: string | boolean;

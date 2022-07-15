@@ -5,6 +5,7 @@ import {OneItem} from "./OneItem/OneItem";
 import {Spinner, useToast} from "@chakra-ui/react";
 import {config} from "../config/config";
 import {SimpleInfoTask} from "types";
+import {Search} from "../commons/Search/Search";
 import './homePage.css'
 
 export const HomePage = () => {
@@ -42,8 +43,10 @@ export const HomePage = () => {
         <>
             <PageTitle pageTitle={'home page'} itemsLength={tasks.length}/>
             <div className={'my_day'}>
+                <Search/>
                 <div className="tasks__container">
-                    <p className={'container_title'}>in progress task's <span>({tasks.length.toString()}el.)</span></p>
+                    <p className={'container_title'}>in progress task's <span>({tasks.length.toString()}el.)</span> </p>
+                    {loading && <div className={"spinner_box"} ><Spinner/></div>}
                     <ul>
                         {tasks.map(task => <OneItem
                             key={task.id}
@@ -51,11 +54,12 @@ export const HomePage = () => {
                             title={task.title}
                             text={task.text}
                         />)}
-                        {loading && <Spinner/>}
+
                     </ul>
                 </div>
                 <div className="tasks__container">
                     <p className={'container_title'}>new task's <span>({newTask.length.toString()}el.)</span></p>
+                    {loading && <div className={"spinner_box"} ><Spinner/></div>}
                     <ul>
                         {newTask.map(task => <OneItem
                             key={task.id}
@@ -64,7 +68,6 @@ export const HomePage = () => {
                             text={task.text}
                         />)}
                     </ul>
-                    {loading && <Spinner/>}
                 </div>
             </div>
         </>
