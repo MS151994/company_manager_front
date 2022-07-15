@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",
@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.25",
     "customize-cra": "^1.0.0",
     "react-app-rewire-alias": "^1.1.7"
   }
