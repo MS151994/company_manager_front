@@ -1,0 +1,41 @@
+.task__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.task__box {
+    margin: 5px;
+}
+.selected_filter{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.selected_filter select{
+    width: 300px;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,0.45);
+    border-radius:4px ;
+}
+
+@media (min-width: 768px) {
+    .task__container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .task__box{
+        width: 300px;
+    }
+
+}
+
+@media (min-width: 1024px) {
+    .task__container {
+        flex-direction: row;
+    }
+    .form__container{
+        width: 300px;
+    }
+
+}

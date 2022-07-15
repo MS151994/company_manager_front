@@ -1,0 +1,39 @@
+.my_day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tasks__container {
+    width: 90%;
+    margin-bottom: 50px;
+}
+.spinner_box{
+    width: 100%;
+    text-align: center;
+}
+.container_title {
+    font-size: 1.7rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+    margin-bottom: 10px;
+}
+
+.container_title span {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+ul {
+    list-style: none;
+}
+
+@media (min-width: 1024px) {
+    .tasks__container {
+        width: 50%;
+    }
+}

@@ -1,0 +1,72 @@
+.menu__container {
+    width: 100vw;
+    height: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu__features {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu__features p {
+    display: none;
+}
+
+.menu__logOut_button {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: 0.3s;
+}
+
+.menu__logOut_button:hover {
+    background: orange;
+}
+
+.menu__container ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    list-style: none;
+}
+
+.menu__container ul a {
+    display: block;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 200;
+    color: black;
+}
+
+@media screen and (min-width: 1024px) {
+    .menu__container {
+        justify-content: space-between;
+    }
+
+    .menu__container ul {
+        margin-left: 10px;
+    }
+
+    .menu__features p {
+        display: block;
+    }
+
+    .menu__container p span {
+        text-transform: capitalize;
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,28 @@
+.notes__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+}
+
+.add_new_note,
+.notes__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.notes__box {
+    flex-direction: column;
+}
+
+
+@media (min-width: 1024px) {
+    .add_new_note,
+    .notes__box {
+        width: 50%;
+        margin: 0 auto;
+    }
+}

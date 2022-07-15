@@ -1,0 +1,71 @@
+.oneTodo__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 50px;
+    width: 80%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+.oneTodo__box {
+    display: flex;
+    flex-direction: column;
+}
+
+.oneTodo_infoBox,
+.oneTodo_dateBox {
+    display: flex;
+    flex-direction: row;
+    padding: 2px;
+}
+
+.oneTodo_infoBox p:nth-child(1) {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.oneTodo_dateBox p {
+    font-size: 0.7rem;
+}
+
+.oneTodo_infoBox p,
+.oneTodo_dateBox p {
+    margin-left: 5px;
+}
+
+.doneText {
+    text-decoration: line-through;
+}
+
+.done_button {
+    padding: 10px;
+    font-size: 1.2rem;
+    background: transparent;
+    border-color: transparent;
+    transition: 0.3s;
+}
+
+.highPriority {
+    border-left-width: 3px;
+    border-left-color: red;
+}
+
+@media screen {
+    .done_button {
+        cursor: pointer;
+    }
+
+    .oneTodo__container:hover {
+        border-color: orange;
+    }
+
+    .oneTodo__container:hover {
+        background: rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,27 @@
+.add_new_note form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.add_new_note form label {
+    width: 100%;
+}
+
+
+.add_new_note form input,
+.add_new_note form textarea {
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    outline-color: orange;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.add_new_note .checkBox {
+    width: 30px;
+}
