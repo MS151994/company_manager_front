@@ -26,7 +26,8 @@ You can make your own todo with quick tasks, Todo's list are created automatical
 
 ## Config File
 
-api: connect to backend
+- api: connect to backend
+- services: [" "], tab of services
 
 ## Available Scripts
 

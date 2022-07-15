@@ -23,6 +23,7 @@ export const AddNewTasksForm = (props: Props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [form, setForm] = useState(initialState);
     const toast = useToast();
+    const items = config.services;
 
     const updateForm = (key: string, value: string) => {
         setForm(form => ({
@@ -58,6 +59,7 @@ export const AddNewTasksForm = (props: Props) => {
         }
     };
 
+
     return (
         <div className="form__container">
             <button className={'add_new_task'} onClick={() => setIsOpen(!isOpen)}>+</button>
@@ -69,10 +71,9 @@ export const AddNewTasksForm = (props: Props) => {
                         <label>
                             <select name="title" value={form.title}
                                     onChange={(e) => updateForm('title', e.target.value)}>
-                                <option value="likwidacja">Likwidacja</option>
-                                <option value="Naprawa">Naprawa</option>
-                                <option value="Fiskalizacja">Fiskalizacja</option>
-                                <option value="other">Inne</option>
+                                {items.map((el, index) =>
+                                    <option key={index} value={el}>{el}</option>
+                                )}
                             </select>
                         </label>
                         <label>
