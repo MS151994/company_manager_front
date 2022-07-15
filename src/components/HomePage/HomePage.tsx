@@ -1,16 +1,16 @@
 import {PageTitle} from "../commons/PageTitle/PageTitle";
 import {useEffect, useState} from "react";
-import {config} from "../config/config";
 import {useCookies} from "react-cookie";
-import {SimpleInfoTask} from "types";
 import {OneItem} from "./OneItem/OneItem";
-import {useToast} from "@chakra-ui/react";
-
+import {Spinner, useToast} from "@chakra-ui/react";
+import {config} from "../config/config";
+import {SimpleInfoTask} from "types";
 import './homePage.css'
 
 export const HomePage = () => {
 
-    const [tasks, setTasks] = useState<SimpleInfoTask[]>([])
+    const [tasks, setTasks] = useState<SimpleInfoTask[]>([]);
+    const [newTask, setNewTask] = useState<SimpleInfoTask[]>([]);
     const [cookie, setCookie] = useCookies(['user']);
     const [loading, setLoading] = useState<boolean>(false);
     const toast = useToast();
@@ -20,7 +20,8 @@ export const HomePage = () => {
             setLoading(true);
             const res = await fetch(`${config.api}/home/${cookie.user}`);
             const data = await res.json();
-            await setTasks(data);
+            await setTasks(data[0]);
+            await setNewTask(data[1])
         } finally {
             setLoading(false);
         }
@@ -50,7 +51,20 @@ export const HomePage = () => {
                             title={task.title}
                             text={task.text}
                         />)}
+                        {loading && <Spinner/>}
                     </ul>
+                </div>
+                <div className="tasks__container">
+                    <p className={'container_title'}>new task's <span>({newTask.length.toString()}el.)</span></p>
+                    <ul>
+                        {newTask.map(task => <OneItem
+                            key={task.id}
+                            id={task.id}
+                            title={task.title}
+                            text={task.text}
+                        />)}
+                    </ul>
+                    {loading && <Spinner/>}
                 </div>
             </div>
         </>
