@@ -1,0 +1,38 @@
+.search__container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.search__container form {
+    width: 100%;
+    margin: 10px auto;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.search__container form label {
+    width: 100%;
+}
+
+.search__container form label input {
+    width: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.search__container form label input:focus {
+    outline-color: orange;
+}
+
+@media (min-width: 1024px) {
+    .search__container form {
+        width: 50%;
+    }
+}
