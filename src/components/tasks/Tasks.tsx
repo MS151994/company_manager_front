@@ -5,6 +5,7 @@ import {TaskInterface} from "types";
 import {config} from "../config/config";
 import {AddNewTasksForm} from "./AddNewTasksForm/AddNewTasksForm";
 import {useToast} from "@chakra-ui/react";
+import {Spinner} from "../commons/Spinner/Spinner";
 import './tasks.css';
 
 export const Tasks = () => {
@@ -30,7 +31,7 @@ export const Tasks = () => {
         refreshTasks().then(() =>
             toast({
                 title: `Everything has been loaded!`,
-                status: 'success',
+                status: 'info',
                 duration: 3000,
                 isClosable: true,
             })
@@ -50,6 +51,7 @@ export const Tasks = () => {
             </div>
             <div className="task__container">
                 <AddNewTasksForm onTasksChange={refreshTasks}/>
+                {loading && <Spinner/>}
                 {tasks
                     .filter(task => task.isDone !== filter)
                     .map(task =>

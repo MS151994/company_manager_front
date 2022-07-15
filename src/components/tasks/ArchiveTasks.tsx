@@ -26,7 +26,7 @@ export const ArchiveTasks = () => {
         refreshArchive().then(() =>
             toast({
                 title: `Everything has been loaded!`,
-                status: 'success',
+                status: 'info',
                 duration: 3000,
                 isClosable: true,
             })
