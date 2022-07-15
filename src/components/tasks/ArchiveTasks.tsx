@@ -60,27 +60,25 @@ export const ArchiveTasks = () => {
         <>
             <PageTitle pageTitle={"Archive"} itemsLength={tasks.length}/>
             <div className="task__container">
-                <ul>
-                    {tasks.map(task => <div key={task.id} className={"task__box"}>
-                        <div className="task_title">
-                            <p>{task.title}</p>
-                            <p>📆 added at: {''}, deadline: {''}</p>
-                        </div>
-                        <div className="task_client_id">
-                            <p>NIP: <span>{task.nip}</span></p>
-                        </div>
-                        <div className='task_text'>
-                            <p>{task.text}</p>
-                        </div>
-                        <div className="task_client_number">
-                            <p>Number: <span>{task.telNumber}</span></p>
-                        </div>
-                        <div className="buttons_box">
-                            <button onClick={() => handleDelete(task.id)}>Delete</button>
-                        </div>
-                        {loading && <div className="loading"><Spinner/></div>}
-                    </div>)}
-                </ul>
+                {tasks.map(task => <div key={task.id} className={"task__box"}>
+                    <div className="task_title">
+                        <p>{task.title}</p>
+                        <p>📆 added at: {''}, deadline: {''}</p>
+                    </div>
+                    <div className="task_client_id">
+                        <p>NIP: <span>{task.nip}</span></p>
+                    </div>
+                    <div className='task_text'>
+                        <p>{task.text}</p>
+                    </div>
+                    <div className="task_client_number">
+                        <p>Number: <span>{task.telNumber}</span></p>
+                    </div>
+                    <div className="buttons_box">
+                        <button onClick={() => handleDelete(task.id)}>Delete</button>
+                    </div>
+                    {loading && <div className="loading"><Spinner/></div>}
+                </div>)}
             </div>
         </>
     )
