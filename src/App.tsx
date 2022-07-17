@@ -5,18 +5,18 @@ import {HomePage} from "./components/HomePage/HomePage";
 import {UserRegistration} from "./components/usersForm/UserRegistration";
 import {Notes} from "./components/notes/Notes";
 import {UserLogin} from "./components/usersForm/UserLogin";
-import {Menu} from "./components/commons/Menu/Menu";
+import {Header} from "./components/Header/Header";
 import {Todos} from "./components/todos/todos";
 import {Tasks} from "./components/tasks/Tasks";
 import {ArchiveTasks} from "./components/tasks/ArchiveTasks";
 import {NotFound} from "./components/commons/404page/NotFound";
 
 export const App = () => {
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie] = useCookies(['user']);
     return (
         <div>
             <CookiesProvider>
-                {(cookie.user && cookie.user !== "undefined") ? <Menu/> : null}
+                {(cookie.user && cookie.user !== "undefined") ? <Header/> : null}
                 <Routes>
                     <Route path="/"
                            element={(cookie.user && cookie.user !== "undefined") ? <HomePage/> : <UserLogin/>}/>
