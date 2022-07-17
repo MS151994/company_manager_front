@@ -1,12 +1,13 @@
-import './buttons.css'
+import {ButtonForm} from './FormButton.styles';
+import {useColorMode} from "@chakra-ui/react";
 
 interface Props {
     buttonName: string;
 }
 
-
 export const FormButton = (props: Props) => {
+    const {colorMode} = useColorMode()
     return (
-        <button className={'form__button'}>{props.buttonName}</button>
+        <ButtonForm borderColor={colorMode}>{props.buttonName}</ButtonForm>
     )
 }
