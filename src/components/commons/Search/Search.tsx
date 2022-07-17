@@ -1,16 +1,18 @@
 import React, {SyntheticEvent, useState} from "react";
-import {config} from "../../config/config";
 import {OneItem} from "../../HomePage/OneItem/OneItem";
-import {Spinner, useToast} from "@chakra-ui/react";
+import {BsSearch} from 'react-icons/bs'
+import {useColorMode, useToast} from "@chakra-ui/react";
+import {ButtonSearch, Form, FoundedTasks} from "./Search.styles";
+import {config} from "../../config/config";
 import {TaskInterface} from "types";
-import './search.css';
+import {Spinner} from "../Spinner/Spinner";
 
 export const Search = () => {
     const [searchInput, setSearchInput] = useState('');
     const [foundedTask, setFoundedTask] = useState<TaskInterface[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const {colorMode} = useColorMode();
     const toast = useToast();
-
 
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -39,8 +41,8 @@ export const Search = () => {
     };
 
     return (
-        <div className="search__container">
-            <form onSubmit={handleSubmit}>
+        <>
+            <Form onSubmit={handleSubmit} borderColor={colorMode}>
                 <label>
                     <input
                         type="text"
@@ -48,11 +50,15 @@ export const Search = () => {
                         value={searchInput}
                         onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchInput(e.currentTarget.value)}
                     />
-                    <button>🔎</button>
+                    <ButtonSearch>
+                        <BsSearch/>
+                    </ButtonSearch>
                 </label>
-            </form>
-            <div className="tasks__container">
+            </Form>
+            <FoundedTasks>
                 {loading && <Spinner/>}
+                {foundedTask.length !== 0 &&
+                    <p className={"searchFor"}>Founded task for: <span>{searchInput}</span></p>}
                 <ul>
                     {foundedTask.map(task => <OneItem
                         key={task.id}
@@ -62,7 +68,7 @@ export const Search = () => {
                         isDone={task.isDone}
                     />)}
                 </ul>
-            </div>
-        </div>
+            </FoundedTasks>
+        </>
     )
 }
