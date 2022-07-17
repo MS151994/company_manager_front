@@ -1,14 +1,21 @@
-import "./pageTitle.css";
+import {PageName} from './PageTitle.styles';
 
 interface Props {
     pageTitle: string;
-    itemsLength: number | string;
+    itemsLength?: number;
 }
 
-export const PageTitle = (props: Props) => {
+export const PageTitle = ({itemsLength: elementLength, pageTitle}: Props) => {
+
     return (
-        <div className="page_title">
-            <h1>{props.pageTitle} <span>({props.itemsLength.toString()} el.)</span></h1>
-        </div>
+        <PageName>
+            <h1>
+                {pageTitle}
+                {elementLength !== undefined
+                    ? <span>active: {elementLength.toString()} el</span>
+                    : null
+                }
+            </h1>
+        </PageName>
     )
 }
