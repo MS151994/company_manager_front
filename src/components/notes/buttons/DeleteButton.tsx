@@ -1,5 +1,6 @@
 import {config} from "../../config/config";
 import {useToast} from "@chakra-ui/react";
+import {IoTrashBinSharp} from "react-icons/io5";
 
 interface Props {
     noteId: string;
@@ -29,5 +30,5 @@ export const DeleteButton = (props: Props) => {
         }
     };
 
-    return <button onClick={() => handleDelete(props.noteId)}>🗑️</button>
+    return <button onClick={() => handleDelete(props.noteId)}><IoTrashBinSharp/></button>
 }

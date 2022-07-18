@@ -1,5 +1,6 @@
-import {config} from "../../config/config";
 import {useToast} from "@chakra-ui/react";
+import {MdOutlineFavoriteBorder} from "react-icons/md";
+import {config} from "../../config/config";
 
 interface Props {
     noteId: string;
@@ -33,7 +34,6 @@ export const UpdateButton = (props: Props) => {
             props.onNotesChange();
         }
     };
-    return (
-        <button onClick={() => handleAddImportant()}>⭐</button>
-    )
+
+    return <button onClick={() => handleAddImportant()}><MdOutlineFavoriteBorder/></button>
 }
