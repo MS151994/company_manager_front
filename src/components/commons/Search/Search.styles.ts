@@ -51,8 +51,7 @@ export const ButtonSearch = styled.button`
 
 export const FoundedTasks = styled.div`
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px auto;
   padding: 5px;
 
   ${device.tablet} {
