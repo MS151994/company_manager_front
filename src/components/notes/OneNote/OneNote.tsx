@@ -1,15 +1,13 @@
 import {UpdateButton} from "../buttons/UpdateButton";
 import {FormButton} from "../../commons/buttons/FormButon";
 import {DeleteButton} from "../buttons/DeleteButton";
-import {useToast} from "@chakra-ui/react";
+import {useColorMode, useToast} from "@chakra-ui/react";
 import {BsFillCalendarDateFill} from 'react-icons/bs';
 import {AiFillEdit} from "react-icons/ai";
 import {SyntheticEvent, useState} from "react";
-import {OneNoteBox} from "./OneNote.styles";
+import {CloseFormButton, Form, FormBox, OneNoteBox} from "./OneNote.styles";
 import {config} from "../../config/config";
 import {NotesInterface} from "types";
-import './oneNote.css';
-
 
 interface Props extends Omit<NotesInterface, 'isImportant'> {
     isImportant: boolean | string;
@@ -25,6 +23,7 @@ export const OneNote = (props: Props) => {
         isImportant: props.isImportant,
     });
     const toast = useToast();
+    const {colorMode} = useColorMode();
 
     const handleEdit = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -75,7 +74,9 @@ export const OneNote = (props: Props) => {
                             noteId={props.id}
                             onNotesChange={props.onNotesChange}
                         />
-                        <button onClick={() => setEditMode(!editMode)}><AiFillEdit/></button>
+                        <button onClick={() => setEditMode(!editMode)}>
+                            <AiFillEdit/>
+                        </button>
                         <UpdateButton
                             noteId={props.id}
                             isImportant={props.isImportant}
@@ -84,8 +85,8 @@ export const OneNote = (props: Props) => {
                     </div>
                 </OneNoteBox>
                 : <>
-                    <div className={'update__form'}>
-                        <form onSubmit={handleEdit}>
+                    <FormBox>
+                        <Form onSubmit={handleEdit} borderColor={colorMode}>
                             <label>
                                 <input
                                     type={"text"}
@@ -102,11 +103,9 @@ export const OneNote = (props: Props) => {
                                 ></textarea>
                             </label>
                             <FormButton buttonName={'update'}/>
-                        </form>
-                    </div>
-                    <div className="buttons_box">
-                        <button onClick={() => setEditMode(!editMode)}>❌</button>
-                    </div>
+                        </Form>
+                        <CloseFormButton onClick={() => setEditMode(!editMode)}>❌</CloseFormButton>
+                    </FormBox>
                 </>
             }
         </>
