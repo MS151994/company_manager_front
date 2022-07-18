@@ -1,17 +1,17 @@
 import {FormButton} from "../../commons/buttons/FormButon";
 import {useCookies} from "react-cookie";
 import {Spinner} from "../../commons/Spinner/Spinner";
-import {useToast} from "@chakra-ui/react";
+import {useColorMode, useToast} from "@chakra-ui/react";
 import {SyntheticEvent, useState} from "react";
 import {config} from "../../config/config";
-import './addNewForm.css';
+import {Form} from './AddNewNote.styles';
 
 interface Props {
     onTodosChange: () => void;
 }
 
 export const AddNewForm = (props: Props) => {
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie] = useCookies(['user']);
     const [loading, setLoading] = useState(false);
     const initialState = {
         title: '',
@@ -21,6 +21,7 @@ export const AddNewForm = (props: Props) => {
     }
     const [form, setForm] = useState(initialState);
     const toast = useToast();
+    const {colorMode} = useColorMode();
 
 
     const updateForm = (key: string, value: string | boolean) => {
@@ -57,18 +58,17 @@ export const AddNewForm = (props: Props) => {
     };
 
     return (
-        <div className="add_new_note">
-            <form onSubmit={handleAddNote}>
-                <label>
-                    <input
-                        type="text"
-                        placeholder={'title'}
-                        required
-                        value={form.title}
-                        onChange={e => updateForm('title', e.target.value)}
-                    />
-                </label>
-                <label>
+        <Form onSubmit={handleAddNote} borderColor={colorMode}>
+            <label>
+                <input
+                    type="text"
+                    placeholder={'title'}
+                    required
+                    value={form.title}
+                    onChange={e => updateForm('title', e.target.value)}
+                />
+            </label>
+            <label>
                     <textarea
                         rows={5}
                         cols={20}
@@ -78,18 +78,17 @@ export const AddNewForm = (props: Props) => {
                         value={form.text}
                         onChange={e => updateForm('text', e.target.value)}
                     />
-                </label>
-                <label>
-                    is important
-                    <input
-                        className={'checkBox'}
-                        type="checkbox"
-                        checked={form.isImportant}
-                        onChange={e => updateForm('isImportant', e.target.checked)}
-                    />
-                </label>
-                {loading ? <Spinner/> : <FormButton buttonName={'add note'}/>}
-            </form>
-        </div>
+            </label>
+            <label>
+                is important
+                <input
+                    className={'checkBox'}
+                    type="checkbox"
+                    checked={form.isImportant}
+                    onChange={e => updateForm('isImportant', e.target.checked)}
+                />
+            </label>
+            {loading ? <Spinner/> : <FormButton buttonName={'add note'}/>}
+        </Form>
     )
 }
