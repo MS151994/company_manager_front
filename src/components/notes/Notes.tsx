@@ -1,18 +1,18 @@
 import {OneNote} from "./OneNote/OneNote";
 import {useEffect, useState} from "react";
-import {config} from "../config/config";
 import {Spinner} from "../commons/Spinner/Spinner";
-import {NotesInterface} from 'types';
 import {useCookies} from "react-cookie";
 import {AddNewForm} from "./AddNewForm/AddNewForm";
 import {PageTitle} from "../commons/PageTitle/PageTitle";
 import {useToast} from "@chakra-ui/react";
-import './notes.css';
+import {config} from "../config/config";
+import {NotesInterface} from 'types';
+
 
 export const Notes = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [notes, setNotes] = useState<NotesInterface[]>([]);
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie] = useCookies(['user']);
     const toast = useToast();
 
     const refreshNotes = async () => {
@@ -23,9 +23,9 @@ export const Notes = () => {
             await setNotes(notes)
         } finally {
             setLoading(false);
-
         }
     }
+
     useEffect(() => {
         refreshNotes().then(() =>
             toast({
@@ -38,23 +38,21 @@ export const Notes = () => {
     }, []);
 
     return (
-        <div className="notes__container">
+        <>
             <PageTitle pageTitle={"notes page"} itemsLength={notes.length}/>
             <AddNewForm onTodosChange={refreshNotes}/>
-            <div className="notes__box">
-                {loading && <Spinner/>}
-                {notes.map((note: NotesInterface) =>
-                    <OneNote
-                        key={note.id}
-                        id={note.id}
-                        title={note.title}
-                        text={note.text}
-                        createdAt={note.createdAt}
-                        userId={note.userId}
-                        isImportant={note.isImportant}
-                        onNotesChange={refreshNotes}
-                    />)}
-            </div>
-        </div>
+            {loading && <Spinner/>}
+            {notes.map((note: NotesInterface) =>
+                <OneNote
+                    key={note.id}
+                    id={note.id}
+                    title={note.title}
+                    text={note.text}
+                    createdAt={note.createdAt}
+                    userId={note.userId}
+                    isImportant={note.isImportant}
+                    onNotesChange={refreshNotes}
+                />)}
+        </>
     )
 }
