@@ -4,7 +4,7 @@ import {Spinner} from "../../commons/Spinner/Spinner";
 import {useToast} from "@chakra-ui/react";
 import {TaskInterface} from 'types';
 import {config} from "../../config/config";
-import './onetask.css';
+import {ButtonBox, LoadingContainer, StatusBox, TaskBox} from "./OneTask.styles";
 
 interface UserInfo {
     userId: string;
@@ -20,7 +20,7 @@ export const OneTask = (props: Props) => {
     const addedDate = new Date(props.createdAt).toLocaleDateString();
     const deadline = new Date(props.deadline).toLocaleDateString();
     const username = props.userInfo.find(user => user.userId === props.userId)
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie] = useCookies(['user']);
     const [loading, setLoading] = useState<boolean>(false)
     const toast = useToast();
 
@@ -100,7 +100,7 @@ export const OneTask = (props: Props) => {
     };
 
     return (
-        <div className={props.userId ? "task__box" : "task__box notAssign"}>
+        <TaskBox userId={props.userId}>
             <div className="task_title">
                 <p>{props.title}</p>
                 <p>📆 added at: {addedDate}, deadline: {deadline}</p>
@@ -117,7 +117,7 @@ export const OneTask = (props: Props) => {
             <div className="task_assign_person">
                 <p>assign: <span>{props.userId === null ? "not assign!" : username?.name}</span></p>
             </div>
-            <div className="buttons_box">
+            <ButtonBox>
                 {props.userId
                     ? <>{props.isDone === "1"
                         ? <button onClick={handleSetArchive}>Archive</button>
@@ -125,8 +125,8 @@ export const OneTask = (props: Props) => {
                     }</>
                     : <button onClick={handleAssignPerson}>take it</button>
                 }
-            </div>
-            <div className="status_box">
+            </ButtonBox>
+            <StatusBox>
                 {props.userId === null
                     ? <p className={'waiting'}>waiting</p>
                     : <>
@@ -135,8 +135,8 @@ export const OneTask = (props: Props) => {
                             : <p className={'done'}>done</p>
                         }
                     </>}
-            </div>
-            {loading && <div className="loading"><Spinner/></div>}
-        </div>
+            </StatusBox>
+            {loading && <LoadingContainer><Spinner/></LoadingContainer>}
+        </TaskBox>
     )
 }

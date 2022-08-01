@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {device} from "../../../const/MediaQueries";
+import {device} from "../../const/MediaQueries";
 
 export const TasksContainer = styled.section`
   display: flex;

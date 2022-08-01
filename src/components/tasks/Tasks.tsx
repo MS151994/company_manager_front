@@ -6,7 +6,7 @@ import {config} from "../config/config";
 import {AddNewTasksForm} from "./AddNewTasksForm/AddNewTasksForm";
 import {useToast} from "@chakra-ui/react";
 import {Spinner} from "../commons/Spinner/Spinner";
-import {SelectedFilter, TasksContainer} from "./OneTask/Tasks.styles";
+import {SelectedFilter, TasksContainer} from "./Tasks.styles";
 
 export const Tasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
