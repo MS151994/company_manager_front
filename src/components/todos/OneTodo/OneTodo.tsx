@@ -1,7 +1,9 @@
 import {TodosInterface} from 'types';
 import {config} from "../../config/config";
 import {useToast} from "@chakra-ui/react";
-import './oneTodo.css';
+import {Button, TodoBox} from "./OneTodo.styles";
+import {BsFillCalendarDateFill} from "react-icons/bs";
+import {AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 
 interface Props extends TodosInterface {
     onTodosChange: () => void;
@@ -14,7 +16,7 @@ export const OneTodo = (props: Props) => {
 
     const handleChangeStatus = async () => {
         try {
-            const res = await fetch(`${config.api}/todos/${props.id}`, {
+            await fetch(`${config.api}/todos/${props.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,21 +52,23 @@ export const OneTodo = (props: Props) => {
     }
 
     return (
-        <div className={props.highPriority === "1" ? "oneTodo__container highPriority" : "oneTodo__container"}>
-            <div className={'oneTodo__box'}>
-                <div className={`oneTodo_infoBox ${props.isActive === "0" ? 'doneText' : ''}`}>
+        <TodoBox highPriority={props.highPriority} isDone={props.isActive}>
+            <div>
+                <div>
                     <p>{props.title}</p>
                     <p>{props.text}</p>
                 </div>
                 <div className="oneTodo_dateBox">
-                    <p>📆</p>
+                    <BsFillCalendarDateFill/>
                     <p>added at: {createdDate.toLocaleDateString()}</p>
                     <p>deadline: {deadlineDate.toLocaleDateString()}</p>
                 </div>
             </div>
             {props.isActive === "1"
-                ? <button className={'done_button'} onClick={handleChangeStatus}>✅</button>
-                : <button className={'done_button'} onClick={handleDelete}>❌</button>}
-        </div>
+                ? <Button isDone={props.isActive}
+                          onClick={handleChangeStatus}><AiOutlineCheck/></Button>
+                : <Button isDone={props.isActive}
+                          onClick={handleDelete}><AiOutlineClose/></Button>}
+        </TodoBox>
     )
 }
