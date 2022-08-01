@@ -6,7 +6,7 @@ import {config} from "../config/config";
 import {AddNewTasksForm} from "./AddNewTasksForm/AddNewTasksForm";
 import {useToast} from "@chakra-ui/react";
 import {Spinner} from "../commons/Spinner/Spinner";
-import './tasks.css';
+import {SelectedFilter, TasksContainer} from "./OneTask/Tasks.styles";
 
 export const Tasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
@@ -41,15 +41,15 @@ export const Tasks = () => {
     return (
         <>
             <PageTitle pageTitle={"task's"} itemsLength={tasks.length}/>
-            <div className={'selected_filter'}>
+            <SelectedFilter>
                 filter by:
                 <select name="" id="" value={filter} onChange={(e) => setFilter(e.target.value)}>
                     <option value="">All</option>
                     <option value="0">Done</option>
                     <option value="1">In Progress</option>
                 </select>
-            </div>
-            <div className="task__container">
+            </SelectedFilter>
+            <TasksContainer>
                 <AddNewTasksForm onTasksChange={refreshTasks}/>
                 {loading && <Spinner/>}
                 {tasks
@@ -71,7 +71,7 @@ export const Tasks = () => {
                             onTasksChange={refreshTasks}
                         />
                     )}
-            </div>
+            </TasksContainer>
         </>
     )
 }
