@@ -4,7 +4,6 @@ import {TaskInterface} from "types";
 import {config} from "../config/config";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {useToast} from "@chakra-ui/react";
-import './tasks.css'
 
 export const ArchiveTasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
