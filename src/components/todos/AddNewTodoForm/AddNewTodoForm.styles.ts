@@ -1,13 +1,22 @@
 import styled from "styled-components";
+import {device} from "../../../const/MediaQueries";
 
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  margin: 0 auto;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.45);
+  width: 90%;
+  margin: 10px auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  ${device.tablet} {
+    width: 70%;
+  }
+
+  ${device.desktop} {
+    width: 50%;
+  }
 `
 
 export const Form = styled.form`
@@ -15,7 +24,7 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
 
   & label {
     font-size: 0.8rem;
@@ -24,7 +33,7 @@ export const Form = styled.form`
 
     & input {
       background-color: transparent;
-      border: 1px solid rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 4px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       padding: 10px;
