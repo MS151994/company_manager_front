@@ -5,6 +5,7 @@ import {useToast} from "@chakra-ui/react";
 import {TaskInterface} from 'types';
 import {config} from "../../config/config";
 import {ButtonBox, LoadingContainer, StatusBox, TaskBox} from "./OneTask.styles";
+import {BsFillCalendarDateFill} from "react-icons/bs";
 
 interface UserInfo {
     userId: string;
@@ -103,7 +104,7 @@ export const OneTask = (props: Props) => {
         <TaskBox userId={props.userId}>
             <div className="task_title">
                 <p>{props.title}</p>
-                <p>📆 added at: {addedDate}, deadline: {deadline}</p>
+                <p><BsFillCalendarDateFill/> added at: {addedDate}, deadline: {deadline}</p>
             </div>
             <div className="task_client_id">
                 <p>NIP: <span>{props.nip}</span></p>

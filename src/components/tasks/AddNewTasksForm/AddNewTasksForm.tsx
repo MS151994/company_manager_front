@@ -1,9 +1,12 @@
-import './addNewTasksForm.css';
 import {FormButton} from "../../commons/buttons/FormButon";
 import {SyntheticEvent, useState} from "react";
 import {config} from "../../config/config";
 import {Spinner} from "../../commons/Spinner/Spinner";
 import {useToast} from "@chakra-ui/react";
+import {MdAddTask} from "react-icons/md";
+import {AddNewButton, CloseButton, Form, FormButtonBox, FormContainer} from "./AddNewTaskForm.styles";
+import {AiOutlineClose} from "react-icons/ai";
+import {HiViewGridAdd} from "react-icons/hi";
 
 interface Props {
     onTasksChange: () => void;
@@ -61,12 +64,13 @@ export const AddNewTasksForm = (props: Props) => {
 
 
     return (
-        <div className="form__container">
-            <button className={'add_new_task'} onClick={() => setIsOpen(!isOpen)}>+</button>
+        <FormButtonBox>
+            <AddNewButton onClick={() => setIsOpen(!isOpen)}><MdAddTask/></AddNewButton>
             {isOpen &&
-                <div className={'add_new_wrapper'}>
-                    <button className={'close_button'} onClick={() => setIsOpen(!isOpen)}>close</button>
-                    <form onSubmit={handleSubmit}>
+                <FormContainer>
+                    <CloseButton onClick={() => setIsOpen(!isOpen)}><AiOutlineClose/></CloseButton>
+                    <Form onSubmit={handleSubmit}>
+                        <HiViewGridAdd/>
                         <h1>add new tasks</h1>
                         <label>
                             <select name="title" value={form.title}
@@ -116,9 +120,9 @@ export const AddNewTasksForm = (props: Props) => {
                     />
                         </label>
                         {loading ? <Spinner/> : <FormButton buttonName={'add'}/>}
-                    </form>
-                </div>
+                    </Form>
+                </FormContainer>
             }
-        </div>
+        </FormButtonBox>
     )
 }

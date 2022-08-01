@@ -48,13 +48,14 @@ export const TaskBox = styled.div<Props>`
     font-size: 0.7rem;
   }
 
-  .task_text {
+  & .task_text {
     border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .task_text p {
     font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.6);
     text-transform: lowercase;
     font-style: italic;
   }
