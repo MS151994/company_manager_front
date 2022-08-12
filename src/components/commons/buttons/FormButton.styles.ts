@@ -6,8 +6,7 @@ interface Props {
 
 export const ButtonForm = styled.button<Props>`
   padding: 5px 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px auto;
   border: 1px solid ${props => props.borderColor === "light" ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'};
   border-radius: 4px;
   background: transparent;
@@ -16,6 +15,8 @@ export const ButtonForm = styled.button<Props>`
   letter-spacing: 2px;
   cursor: pointer;
   transition: 0.3s;
+  width: 30%;
+
 
   &:hover {
     background: orange;
