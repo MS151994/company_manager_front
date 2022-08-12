@@ -5,6 +5,10 @@ interface Props {
     highPriority: string | boolean;
 }
 
+interface FormPropsBorder {
+    borderColor: string
+}
+
 export const OneNoteBox = styled.div<Props>`
   display: flex;
   justify-content: space-between;
@@ -48,7 +52,50 @@ export const OneNoteBox = styled.div<Props>`
   & div > p:nth-child(2) {
     padding: 5px;
   }
+`
+export const FormBox = styled.div`
+  padding: 5px;
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid orange;
 
+  ${device.tablet} {
+    width: 70%;
+  }
 
+  ${device.desktop} {
+    width: 50%;
+  }
+`
 
+export const Form = styled.form<FormPropsBorder>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & label {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+
+    & input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid ${props => props.borderColor === "light" ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'};
+      border-radius: 4px;
+      background: transparent;
+    }
+
+    & textarea {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid ${props => props.borderColor === "light" ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'};
+      border-radius: 4px;
+      background: transparent;
+    }
+`
+
+export const CloseFormButton = styled.button`
+  width: 100%;
 `

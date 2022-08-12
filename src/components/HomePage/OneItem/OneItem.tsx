@@ -1,6 +1,7 @@
-import {SimpleInfoTask} from "types";
 import {NavLink} from "react-router-dom";
-import './oneItem.css';
+import {OneItemBox} from "./OneItem.styles";
+import {BsFillArrowRightCircleFill} from "react-icons/bs";
+import {SimpleInfoTask} from "types";
 
 interface Props extends SimpleInfoTask {
     isDone?: string | boolean;
@@ -8,13 +9,12 @@ interface Props extends SimpleInfoTask {
 
 export const OneItem = (props: Props) => {
     return (
-        <li className={props.isDone === '1' ? "oneItem__box doneTask" : 'oneItem__box'}>
+        <OneItemBox isDone={props.isDone}>
             <div>
                 <p>{props.title}</p>
                 <p> {props.text}</p>
-                {props.isDone === "1" ? <p>Done</p> : <p>in progress</p>}
             </div>
-            <NavLink to={'/tasks'}>➡️</NavLink>
-        </li>
+            <NavLink to={'/tasks'}><BsFillArrowRightCircleFill/></NavLink>
+        </OneItemBox>
     )
 }
