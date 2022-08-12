@@ -3,16 +3,18 @@ import {OneTask} from "./OneTask/OneTask";
 import {useEffect, useState} from "react";
 import {TaskInterface} from "types";
 import {config} from "../config/config";
-import {AddNewTasksForm} from "./AddNewTasksForm/AddNewTasksForm";
 import {useToast} from "@chakra-ui/react";
 import {Spinner} from "../commons/Spinner/Spinner";
-import './tasks.css';
+import {FilterSelected, TaskContainer} from "./Tasks,styles";
+import {AiOutlineAppstoreAdd} from "react-icons/ai";
+import {AddNewFormModal} from "../commons/modals/AddNewFormModal/AddNewFormModal";
 
 export const Tasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
     const [users, setUsers] = useState<[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [filter, setFilter] = useState<string>('all');
+    const [openModal, setOpenModal] = useState(false)
     const toast = useToast();
 
     const refreshTasks = async () => {
@@ -38,19 +40,24 @@ export const Tasks = () => {
         );
     }, [])
 
+    openModal
+        ? (document.body.style.overflow = 'hidden')
+        : (document.body.style.overflow = '')
+
     return (
         <>
             <PageTitle pageTitle={"task's"} itemsLength={tasks.length}/>
-            <div className={'selected_filter'}>
+            <FilterSelected>
                 filter by:
                 <select name="" id="" value={filter} onChange={(e) => setFilter(e.target.value)}>
                     <option value="">All</option>
                     <option value="0">Done</option>
                     <option value="1">In Progress</option>
                 </select>
-            </div>
-            <div className="task__container">
-                <AddNewTasksForm onTasksChange={refreshTasks}/>
+                <AiOutlineAppstoreAdd onClick={() => setOpenModal(!openModal)}>+</AiOutlineAppstoreAdd>
+            </FilterSelected>
+            {openModal && <AddNewFormModal openModal={setOpenModal} refreshTasks={refreshTasks}/>}
+            <TaskContainer>
                 {loading && <Spinner/>}
                 {tasks
                     .filter(task => task.isDone !== filter)
@@ -71,7 +78,7 @@ export const Tasks = () => {
                             onTasksChange={refreshTasks}
                         />
                     )}
-            </div>
+            </TaskContainer>
         </>
     )
 }

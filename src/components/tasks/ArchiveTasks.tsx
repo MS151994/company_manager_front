@@ -4,7 +4,7 @@ import {TaskInterface} from "types";
 import {config} from "../config/config";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {useToast} from "@chakra-ui/react";
-import './tasks.css'
+import {TaskContainer} from "./Tasks,styles";
 
 export const ArchiveTasks = () => {
     const [tasks, setTasks] = useState<TaskInterface[]>([]);
@@ -59,7 +59,7 @@ export const ArchiveTasks = () => {
     return (
         <>
             <PageTitle pageTitle={"Archive"} itemsLength={tasks.length}/>
-            <div className="task__container">
+            <TaskContainer>
                 {tasks.map(task => <div key={task.id} className={"task__box"}>
                     <div className="task_title">
                         <p>{task.title}</p>
@@ -79,7 +79,7 @@ export const ArchiveTasks = () => {
                     </div>
                     {loading && <div className="loading"><Spinner/></div>}
                 </div>)}
-            </div>
+            </TaskContainer>
         </>
     )
 }
