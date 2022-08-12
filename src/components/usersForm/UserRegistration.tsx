@@ -4,7 +4,8 @@ import {Spinner} from "../commons/Spinner/Spinner";
 import {config} from "../config/config";
 import {NavLink} from "react-router-dom";
 import {useToast} from "@chakra-ui/react";
-import './userForm.css';
+import {Form} from "./UserForm.styles";
+import {FaUserPlus} from "react-icons/fa";
 
 export const UserRegistration = () => {
     const toast = useToast();
@@ -63,10 +64,11 @@ export const UserRegistration = () => {
     }
 
     return (
-        <form className={"userForm__container"} onSubmit={handleRegister}>
+        <Form onSubmit={handleRegister}>
             {!userAddedInfo ?
                 <>
-                    <h1 className={'title'}>Sing up</h1>
+                    <FaUserPlus/>
+                    <h1>Sing up</h1>
                     <label>
                         <input
                             type="text"
@@ -108,6 +110,6 @@ export const UserRegistration = () => {
                     <p><NavLink className={'login_button'} to={'/'}>login</NavLink></p>
                 </>
             }
-        </form>
+        </Form>
     )
 }
