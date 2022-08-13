@@ -4,7 +4,7 @@ import {Spinner} from "../../commons/Spinner/Spinner";
 import {useToast} from "@chakra-ui/react";
 import {TaskInterface} from 'types';
 import {config} from "../../config/config";
-import './onetask.css';
+import {TaskBox} from "./OneTask.styles";
 
 interface UserInfo {
     userId: string;
@@ -20,7 +20,7 @@ export const OneTask = (props: Props) => {
     const addedDate = new Date(props.createdAt).toLocaleDateString();
     const deadline = new Date(props.deadline).toLocaleDateString();
     const username = props.userInfo.find(user => user.userId === props.userId)
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie] = useCookies(['user']);
     const [loading, setLoading] = useState<boolean>(false)
     const toast = useToast();
 
@@ -100,7 +100,7 @@ export const OneTask = (props: Props) => {
     };
 
     return (
-        <div className={props.userId ? "task__box" : "task__box notAssign"}>
+        <TaskBox>
             <div className="task_title">
                 <p>{props.title}</p>
                 <p>📆 added at: {addedDate}, deadline: {deadline}</p>
@@ -137,6 +137,6 @@ export const OneTask = (props: Props) => {
                     </>}
             </div>
             {loading && <div className="loading"><Spinner/></div>}
-        </div>
+        </TaskBox>
     )
 }

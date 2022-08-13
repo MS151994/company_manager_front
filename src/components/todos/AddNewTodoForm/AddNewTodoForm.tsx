@@ -2,7 +2,7 @@ import {FormButton} from "../../commons/buttons/FormButon";
 import {useCookies} from "react-cookie";
 import {config} from "../../config/config";
 import {SyntheticEvent, useState} from "react";
-import './addNewTodoForm.css';
+import {Form, FormContainer} from "./AddNewTodoForm.styles";
 
 interface Props {
     onTodosChange: () => Promise<void>;
@@ -17,7 +17,7 @@ export const AddNewTodoForm = (props: Props) => {
         highPriority: false,
     };
 
-    const [cookie, setCookie] = useCookies(['user'])
+    const [cookie] = useCookies(['user'])
     const [form, setForm] = useState(initialState);
 
     const updateForm = (key: string, value: string | boolean) => {
@@ -30,7 +30,7 @@ export const AddNewTodoForm = (props: Props) => {
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${config.api}/todos/${cookie.user}`, {
+            await fetch(`${config.api}/todos/${cookie.user}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -44,8 +44,8 @@ export const AddNewTodoForm = (props: Props) => {
     };
 
     return (
-        <div className="add_new_todo">
-            <form onSubmit={handleSubmit}>
+        <FormContainer>
+            <Form onSubmit={handleSubmit}>
                 <label>
                     <input
                         type="text"
@@ -85,7 +85,7 @@ export const AddNewTodoForm = (props: Props) => {
                     />
                 </label>
                 <FormButton buttonName={'add'}/>
-            </form>
-        </div>
+            </Form>
+        </FormContainer>
     )
 }

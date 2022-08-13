@@ -7,12 +7,12 @@ import {OneTodo} from "./OneTodo/OneTodo";
 import {useToast} from "@chakra-ui/react";
 import {TodosInterface} from "types";
 import {config} from "../config/config";
-import './todos.css';
+import {Separator, TodosContainer} from "./todos.styles";
 
 export const Todos = () => {
     const [todos, setTodos] = useState<TodosInterface[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie] = useCookies(['user']);
     const toast = useToast();
 
     const active = todos.filter(el => el.isActive === '1');
@@ -53,10 +53,10 @@ export const Todos = () => {
             <PageTitle pageTitle={"my todo's"} itemsLength={todos.length}/>
             <AddNewTodoForm onTodosChange={refreshTodos}/>
             {active.length !== 0 &&
-                <div className="todo__item_box">
-                    <div className="todo__separator">
-                        <p>Active <span>({active.length.toString()}el)</span></p>
-                    </div>
+                <TodosContainer>
+                    <Separator>
+                        <p>Todos <span>active {active.length.toString()} el</span></p>
+                    </Separator>
                     {loading && <Spinner/>}
                     {active.map(todo =>
                         <OneTodo
@@ -71,13 +71,13 @@ export const Todos = () => {
                             isActive={todo.isActive}
                             onTodosChange={refreshTodos}
                         />)}
-                </div>
+                </TodosContainer>
             }
             {doneEl.length !== 0 &&
-                <div className="todo__item_box">
-                    <div className="todo__separator">
-                        <p>done <span>({doneEl.length.toString()}el)</span></p>
-                    </div>
+                <TodosContainer>
+                    <Separator>
+                        <p>done <span> {doneEl.length.toString()} el</span></p>
+                    </Separator>
                     {loading && <Spinner/>}
                     {doneEl.map(todo =>
                         <OneTodo
@@ -92,7 +92,7 @@ export const Todos = () => {
                             isActive={todo.isActive}
                             onTodosChange={refreshTodos}
                         />)}
-                </div>
+                </TodosContainer>
             }
         </div>
     )

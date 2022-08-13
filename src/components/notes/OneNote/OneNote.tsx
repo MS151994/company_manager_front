@@ -1,11 +1,13 @@
-import {NotesInterface} from "types";
 import {UpdateButton} from "../buttons/UpdateButton";
-import {SyntheticEvent, useState} from "react";
 import {FormButton} from "../../commons/buttons/FormButon";
-import {config} from "../../config/config";
 import {DeleteButton} from "../buttons/DeleteButton";
-import './oneNote.css';
-import {useToast} from "@chakra-ui/react";
+import {useColorMode, useToast} from "@chakra-ui/react";
+import {BsFillCalendarDateFill} from 'react-icons/bs';
+import {AiFillEdit} from "react-icons/ai";
+import {SyntheticEvent, useState} from "react";
+import {CloseFormButton, Form, FormBox, OneNoteBox} from "./OneNote.styles";
+import {config} from "../../config/config";
+import {NotesInterface} from "types";
 
 interface Props extends Omit<NotesInterface, 'isImportant'> {
     isImportant: boolean | string;
@@ -21,6 +23,7 @@ export const OneNote = (props: Props) => {
         isImportant: props.isImportant,
     });
     const toast = useToast();
+    const {colorMode} = useColorMode();
 
     const handleEdit = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -55,32 +58,35 @@ export const OneNote = (props: Props) => {
     };
 
     return (
-        <div className={props.isImportant === '1' ? "one_note important" : "one_note"}>
+        <>
             {!editMode
-                ? <>
+                ? <OneNoteBox highPriority={props.isImportant}>
                     <div>
-                        <p>{props.title}
-                            <span
-                                className={'created_date'}> (add: {dt.toLocaleDateString()} at: {dt.toLocaleTimeString()})</span>
-                        </p>
-                        <p className={"text_box"}>{props.text}</p>
+                        <p>{props.title}</p>
+                        <div>
+                            <BsFillCalendarDateFill/>
+                            add: {dt.toLocaleDateString()} at: {dt.toLocaleTimeString()}
+                        </div>
+                        <p>{props.text}</p>
                     </div>
                     <div className="buttons_box">
                         <DeleteButton
                             noteId={props.id}
                             onNotesChange={props.onNotesChange}
                         />
-                        <button onClick={() => setEditMode(!editMode)}>✏️</button>
+                        <button onClick={() => setEditMode(!editMode)}>
+                            <AiFillEdit/>
+                        </button>
                         <UpdateButton
                             noteId={props.id}
                             isImportant={props.isImportant}
                             onNotesChange={props.onNotesChange}
                         />
                     </div>
-                </>
+                </OneNoteBox>
                 : <>
-                    <div className={'update__form'}>
-                        <form onSubmit={handleEdit}>
+                    <FormBox>
+                        <Form onSubmit={handleEdit} borderColor={colorMode}>
                             <label>
                                 <input
                                     type={"text"}
@@ -97,13 +103,11 @@ export const OneNote = (props: Props) => {
                                 ></textarea>
                             </label>
                             <FormButton buttonName={'update'}/>
-                        </form>
-                    </div>
-                    <div className="buttons_box">
-                        <button onClick={() => setEditMode(!editMode)}>❌</button>
-                    </div>
+                        </Form>
+                        <CloseFormButton onClick={() => setEditMode(!editMode)}>❌</CloseFormButton>
+                    </FormBox>
                 </>
             }
-        </div>
+        </>
     )
 }

@@ -1,5 +1,7 @@
-import './spinner.css';
+import {Loader, SpinnerBox} from "./Spinner.styles";
 
-export const Spinner = () => <div className={"spinner__container"}>
-    <div className="loader"></div>
-</div>;
+export const Spinner = () => (
+    <SpinnerBox>
+        <Loader/>
+    </SpinnerBox>
+)

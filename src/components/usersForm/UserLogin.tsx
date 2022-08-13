@@ -5,7 +5,8 @@ import {Spinner} from "../commons/Spinner/Spinner";
 import {NavLink} from "react-router-dom";
 import {FormButton} from "../commons/buttons/FormButon";
 import {useToast} from "@chakra-ui/react";
-import './userForm.css';
+import {Form} from "./UserForm.styles";
+import {FaUserLock} from "react-icons/fa";
 
 export const UserLogin = () => {
     const [cookie, setCookie] = useCookies<string>(['user', 'username']);
@@ -69,8 +70,9 @@ export const UserLogin = () => {
     }
 
     return (
-        <form className={"userForm__container"} onSubmit={handleLogin}>
-            <h1 className={'title'}>Sign in</h1>
+        <Form onSubmit={handleLogin}>
+            <FaUserLock/>
+            <h1>Sign in</h1>
             <label>
                 <input
                     type="text"
@@ -94,6 +96,6 @@ export const UserLogin = () => {
             {loading ? <Spinner/> : <FormButton buttonName={'login'}/>}
             <p className={'account_info'}>You don't have an account? please <NavLink to={'/user/registration'}>create
                 account</NavLink>.</p>
-        </form>
+        </Form>
     )
 }

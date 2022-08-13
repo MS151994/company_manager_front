@@ -1,5 +1,8 @@
-import './notFound.css';
+import {NotFoundPage} from "./NotFound.styles";
 
 export const NotFound = () => {
-    return <div className={'notFound__container'}><h1>404</h1><h1>Not Found</h1></div>
+    return <NotFoundPage>
+        <h1>404</h1>
+        <h2>Not Found</h2>
+    </NotFoundPage>
 }
