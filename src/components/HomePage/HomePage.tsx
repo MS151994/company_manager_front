@@ -3,17 +3,19 @@ import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {OneItem} from "./OneItem/OneItem";
 import {useToast} from "@chakra-ui/react";
-import {Search} from "../commons/Search/Search";
+import {Search} from "../commons/modals/Search/Search";
 import {Spinner} from "../commons/Spinner/Spinner";
-import {TaskBox} from "./HomePage.styles";
+import {SearchBox, TaskBox} from "./HomePage.styles";
 import {config} from "../config/config";
 import {SimpleInfoTask} from "types";
+import {BsSearch} from 'react-icons/bs'
 
 export const HomePage = () => {
     const [tasks, setTasks] = useState<SimpleInfoTask[]>([]);
     const [newTask, setNewTask] = useState<SimpleInfoTask[]>([]);
     const [cookie] = useCookies(['user']);
     const [loading, setLoading] = useState<boolean>(false);
+    const [openSearch, setOpenSearch] = useState(false)
     const toast = useToast();
 
     const refreshTasks = async () => {
@@ -42,7 +44,14 @@ export const HomePage = () => {
     return (
         <>
             <PageTitle pageTitle={'home page'}/>
-            <Search/>
+            <SearchBox onClick={() => setOpenSearch(!openSearch)}>
+                <BsSearch/>
+                <input
+                    type="text"
+                    placeholder={'Search items by client id'}
+                    disabled
+                />
+            </SearchBox>
             <TaskBox>
                 <p className={'box_title'}>in progress task's <span>active {tasks.length.toString()} el</span></p>
                 {loading && <Spinner/>}
@@ -67,6 +76,7 @@ export const HomePage = () => {
                     />)}
                 </ul>
             </TaskBox>
+            {openSearch && <Search isOpen={setOpenSearch}/>}
         </>
     )
 }
