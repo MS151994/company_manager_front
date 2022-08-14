@@ -4,6 +4,7 @@ import {useColorMode} from "@chakra-ui/react";
 import {Menu} from "../Menu/Menu";
 import {LoggedUserInfo, LogOutButton, NavigationBar, UserInfoBox} from "./Header.styles";
 import {DarkModeSwitch} from "react-toggle-dark-mode";
+import {NavLink} from "react-router-dom";
 
 export const Header = () => {
     const [cookie, setCookie, removeCookie] = useCookies(['user', 'username']);
@@ -34,7 +35,7 @@ export const Header = () => {
                 />
                 <LoggedUserInfo>
                     Welcome,
-                    <span>{cookie.username}</span>
+                    <NavLink to={'/user'}>{cookie.username}</NavLink>
                 </LoggedUserInfo>
                 <LogOutButton
                     borderColor={colorMode}
