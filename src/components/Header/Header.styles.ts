@@ -37,10 +37,11 @@ export const LoggedUserInfo = styled.p`
   margin-left: 5px;
   font-style: italic;
 
-  span {
+  a {
     text-transform: capitalize;
     color: orange;
     margin-left: 5px;
+    text-decoration: none;
   }
 `
 export const LogOutButton = styled.button<Props>`
