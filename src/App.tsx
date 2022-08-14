@@ -10,6 +10,8 @@ import {Todos} from "./components/todos/todos";
 import {Tasks} from "./components/tasks/Tasks";
 import {ArchiveTasks} from "./components/tasks/ArchiveTasks";
 import {NotFound} from "./components/commons/404page/NotFound";
+import {UserPage} from "./pages/UserPage";
+import {AdminPage} from "./pages/AdminPage";
 
 export const App = () => {
     const [cookie] = useCookies(['user']);
@@ -29,6 +31,10 @@ export const App = () => {
                            element={(cookie.user && cookie.user !== "undefined") ? <Tasks/> : <UserLogin/>}/>
                     <Route path="/archive"
                            element={(cookie.user && cookie.user !== "undefined") ? <ArchiveTasks/> : <UserLogin/>}/>
+                    <Route path={'/user'}
+                           element={(cookie.user && cookie.user !== "undefined") ? <UserPage/> : <UserLogin/>}/>
+                    <Route path={'/user/admin'}
+                           element={(cookie.user && cookie.user !== "undefined") ? <AdminPage/> : <UserLogin/>}/>
                     <Route path='/*' element={<NotFound/>}/>
                 </Routes>
             </CookiesProvider>
