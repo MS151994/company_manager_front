@@ -1,1 +1,3 @@
-export const AdminPage = () => <h1>ADMIN PAGE</h1>
+import {Admin} from "../components/admin/admin";
+
+export const AdminPage = () => <Admin/>
