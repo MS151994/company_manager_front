@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import {device} from "../../../const/MediaQueries";
 
-export const ChangePassContainer = styled.div`
+export const UserModalStyles = styled.div`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -11,31 +10,21 @@ export const ChangePassContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
 `
 
-export const ChangePassForm = styled.form`
+export const UserModalContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  width: 98%;
-  height: 98%;
+  width: 95%;
+  height: 95%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.7);
 
-  ${device.tablet}{
-    width: 70%;
-    height: 75%;
-  }
-
-  ${device.desktop}{
-    width: 50%;
-    height: 75%;
-  }
-  
-  
   & div:nth-child(1) {
     display: flex;
     justify-content: center;
@@ -55,17 +44,24 @@ export const ChangePassForm = styled.form`
     letter-spacing: 2px;
   }
 
-  & label {
-    width: 60%;
-    padding: 5px;
-
-    & input {
-      padding: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
+  & div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    & label {
       width: 100%;
-      margin-top: 5px;
+      padding: 5px;
+
+      & input {
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        width: 100%;
+        margin-top: 5px;
+      }
     }
   }
 
