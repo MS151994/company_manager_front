@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {device} from "../../../const/MediaQueries";
 
 export const ChangePassContainer = styled.div`
   position: fixed;
@@ -18,12 +19,23 @@ export const ChangePassForm = styled.form`
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  width: 35%;
-  height: 70%;
+  width: 98%;
+  height: 98%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.7);
 
+  ${device.tablet}{
+    width: 70%;
+    height: 75%;
+  }
+
+  ${device.desktop}{
+    width: 50%;
+    height: 75%;
+  }
+  
+  
   & div:nth-child(1) {
     display: flex;
     justify-content: center;

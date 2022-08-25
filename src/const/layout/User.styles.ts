@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {device} from "../MediaQueries";
 
 export const UserPageContainer = styled.div`
   display: flex;
@@ -25,11 +26,15 @@ export const UserPageContainer = styled.div`
 export const UserInfoBox = styled.div`
   justify-content: center;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
   text-align: center;
 
+  ${device.desktop}{
+    max-width: 60%;
+  }
+  
   & > p {
     font-size: 2rem;
     font-weight: 100;
@@ -45,8 +50,19 @@ export const UserInfoBox = styled.div`
 
 export const UserEvaluationBox = styled.div`
   justify-content: space-around;
-  flex-wrap: wrap;
-  width: 50%;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 100%;
+  
+  ${device.tablet}{
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  
+  ${device.desktop}{
+    max-width: 60%;
+  }
+  
 
   & > .box {
     display: flex;
@@ -58,10 +74,14 @@ export const UserEvaluationBox = styled.div`
     margin: 10px 5px;
     padding: 5px;
     border-radius: 4px;
-    height: 200px;
-    width: 200px;
     transition: 0.3s;
     cursor: pointer;
+    
+    ${device.tablet}{
+      height: 200px;
+      width: 200px;
+    }
+    
 
     & .arrow {
       font-size: 1.2rem;

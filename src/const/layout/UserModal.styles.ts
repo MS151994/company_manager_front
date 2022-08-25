@@ -19,8 +19,8 @@ export const UserModalContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  width: 35%;
-  height: 70%;
+  width: 95%;
+  height: 95%;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.7);
