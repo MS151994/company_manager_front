@@ -59,10 +59,10 @@ export const Search = ({isOpen}: Props) => {
     };
 
     return (
-        <SearchContainer>
+        <SearchContainer currentColor={colorMode}>
             <AiOutlineClose className={"closeSearchButton"} onClick={() => isOpen(false)}>CLOSE</AiOutlineClose>
             <SearchBox>
-                <Form onSubmit={handleSubmit} borderColor={colorMode}>
+                <Form onSubmit={handleSubmit} currentColor={colorMode}>
                     <label>
                         <ButtonSearch>
                             <BsSearch/>
@@ -81,7 +81,7 @@ export const Search = ({isOpen}: Props) => {
                     </label>
                 </Form>
             </SearchBox>
-            <FoundedTasks>
+            <FoundedTasks currentColor={colorMode}>
                 {loading && <Spinner/>}
                 {foundedTask.length !== 0 &&
                     <p className={"searchFor"}>Founded task for: <span>{searchInput}</span></p>}

@@ -2,17 +2,17 @@ import styled from "styled-components";
 import {device} from "../../../../const/MediaQueries";
 
 interface Props {
-    borderColor: string;
+    currentColor: string;
 }
 
 
-export const SearchContainer = styled.div`
+export const SearchContainer = styled.div<Props>`
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: ${props => props.currentColor === "light" ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)'};
 
   & .closeSearchButton {
     position: absolute;
@@ -63,6 +63,7 @@ export const Form = styled.form<Props>`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: ${props => props.currentColor === "light" ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)'};
 
     & div {
       width: 20px;
@@ -82,7 +83,7 @@ export const Form = styled.form<Props>`
   & input {
     background: transparent;
     width: 80%;
-    border: 1px solid ${props => props.borderColor === "light" ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'};
+    border: 1px solid ${props => props.currentColor === "light" ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'};
     border-radius: 4px;
     padding: 5px;
 
@@ -102,10 +103,11 @@ export const ButtonSearch = styled.button`
   }
 `
 
-export const FoundedTasks = styled.div`
+export const FoundedTasks = styled.div<Props>`
   width: 100%;
   margin: 20px auto;
   padding: 5px;
+  background-color: ${props => props.currentColor === "light" ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.5)'};
 
   ${device.tablet} {
     width: 70%;
