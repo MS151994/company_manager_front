@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import {device} from "../../../../const/MediaQueries";
 
-export const FormContainer = styled.div`
+interface Props {
+    currentColor: string;
+}
+
+export const FormContainer = styled.div<Props>`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -11,7 +15,7 @@ export const FormContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: ${props => props.currentColor === "light" ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.9)'};
   z-index: 2;
 
   .closeButton {
@@ -50,7 +54,7 @@ export const FormContainer = styled.div`
   }
 `
 
-export const Form = styled.form`
+export const Form = styled.form<Props>`
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -68,11 +72,12 @@ export const Form = styled.form`
 
     & input, select, textarea {
       width: 80%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid ${props => props.currentColor === "light" ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.3)'};
       border-radius: 4px;
       padding: 5px;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: ${props => props.currentColor === "light" ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.5)'};
       margin-bottom: 5px;
+      cursor: pointer;
 
       &:focus {
         border-color: rgba(255, 255, 255, 0.5);

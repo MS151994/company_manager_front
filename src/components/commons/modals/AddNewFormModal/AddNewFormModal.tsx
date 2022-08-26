@@ -3,7 +3,7 @@ import {Spinner} from "../../Spinner/Spinner";
 import {FormButton} from "../../buttons/FormButon";
 import {config} from "../../../config/config";
 import {SyntheticEvent, useState} from "react";
-import {useToast} from "@chakra-ui/react";
+import {useColorMode, useToast} from "@chakra-ui/react";
 import {AiOutlineAppstoreAdd, AiOutlineClose} from "react-icons/ai";
 
 interface Props {
@@ -25,6 +25,7 @@ export const AddNewFormModal = ({openModal, refreshTasks}: Props) => {
     const [form, setForm] = useState(initialState);
     const toast = useToast();
     const items = config.services;
+    const {colorMode} = useColorMode()
 
     const updateForm = (key: string, value: string) => {
         setForm(form => ({
@@ -61,11 +62,11 @@ export const AddNewFormModal = ({openModal, refreshTasks}: Props) => {
     };
 
     return (
-        <FormContainer>
+        <FormContainer currentColor={colorMode}>
             <AiOutlineClose className={"closeButton"} onClick={() => openModal(false)}>CLOSE</AiOutlineClose>
             <AiOutlineAppstoreAdd className={'formIcon'}/>
             <h1>add new tasks</h1>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} currentColor={colorMode}>
                 <label>
                     <select name="title" value={form.title}
                             onChange={(e) => updateForm('title', e.target.value)}>
