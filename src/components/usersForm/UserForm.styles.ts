@@ -74,7 +74,6 @@ export const Form = styled.form`
   .errorMsg,
   .account_info {
     font-weight: 200;
-    color: red;
     font-style: italic;
     padding: 3px;
     margin-bottom: 10px;
@@ -83,7 +82,6 @@ export const Form = styled.form`
   .account_info {
     margin-top: 20px;
     font-size: 1.1rem;
-    color: white;
 
     & > a {
       color: orange;
