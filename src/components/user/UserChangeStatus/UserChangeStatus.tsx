@@ -3,19 +3,39 @@ import {SyntheticEvent, useState} from "react";
 import {ChangeStatusContainer, ChangeStatusForm} from "./UserChangeStatus.styles";
 import {AiOutlineClose} from "react-icons/ai";
 import {FormButton} from "../../commons/buttons/FormButon";
+import {config} from "../../config/config";
+import {Spinner} from "../../commons/Spinner/Spinner";
 
 interface Props {
     isOpen: (arg: boolean) => void
     userId: string
+    refreshData: () => void
 }
 
-export const UserChangeStatus = ({isOpen, userId}: Props) => {
+export const UserChangeStatus = ({isOpen, userId, refreshData}: Props) => {
     const [userStatus, setUserStatus] = useState('free')
+    const [loading, setLoading] = useState<boolean>(false)
     const handleUserStatus = (value: string) => setUserStatus(value)
 
-    const handleSubmitStatus = (e: SyntheticEvent) => {
+    const handleSubmitStatus = async (e: SyntheticEvent) => {
         e.preventDefault();
-        console.log(userStatus)
+        try {
+            setLoading(true)
+             await fetch(`${config.api}/user`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    userStatus: userStatus
+                })
+            })
+        } finally {
+            setLoading(false);
+            await refreshData();
+            isOpen(false);
+        }
     };
     return (
         <ChangeStatusContainer>
@@ -39,6 +59,7 @@ export const UserChangeStatus = ({isOpen, userId}: Props) => {
                 </label>
                 <FormButton buttonName={'change'}/>
                 <AiOutlineClose onClick={() => isOpen(false)} className={'closeIcon'}/>
+                {loading ?? <Spinner/>}
             </ChangeStatusForm>
         </ChangeStatusContainer>
     )

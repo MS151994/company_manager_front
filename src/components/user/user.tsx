@@ -5,24 +5,48 @@ import {AiOutlineAppstoreAdd, AiOutlineArrowRight, AiOutlineClockCircle, AiOutli
 import {NavLink} from "react-router-dom";
 import {SiMicrosoftonenote, SiStatuspal} from "react-icons/si";
 import {MdOutlinePublishedWithChanges, MdOutlineTaskAlt} from "react-icons/md";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {UserChangePass} from "./UserChagePass/UserChangePass";
 import {FaUserCog} from "react-icons/fa";
 import {IoLogInOutline} from "react-icons/io5";
 import {Clock} from "../commons/Clock/Clock";
 import {UserChangeStatus} from "./UserChangeStatus/UserChangeStatus";
+import {config} from "../config/config";
 
 
 export const User = () => {
     const [cookie, setCookie, removeCookie] = useCookies<string>(['user', 'username']);
     const [changePassOpen, setChangePassOpen] = useState<boolean>(false)
     const [changeStatusOpen, setChangeStatusOpen] = useState<boolean>(false)
+    const [user, setUser] = useState({
+        id: '',
+        createdAt: '',
+        userRole: '',
+        userStatus: '',
+        taskLength: '',
+        notesLength: '',
+        todosLength: '',
+        archiveLength: ''
+    })
 
     const handleLogOut = () => {
         removeCookie('user');
         removeCookie('username');
         window.location.reload();
     }
+
+    const getUserInfo = async () => {
+        const res = await fetch(`${config.api}/user/${cookie.user}`)
+        const data = await res.json()
+        setUser(prevState => ({
+            ...prevState,
+            ...data,
+        }))
+    }
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
 
     return (
         <>
@@ -32,14 +56,14 @@ export const User = () => {
                     <FaUserCog/>
                 </div>
                 <UserInfoBox>
-                    <p>User name: <span>{cookie.username}</span></p>
+                    <p>User name: <span>{cookie.username}</span> <small> {user.userStatus}</small></p>
                 </UserInfoBox>
                 <UserEvaluationBox>
                     <NavLink className={'box'} to={'/tasks'}>
                         <AiOutlineAppstoreAdd/>
                         <div>
                             <p>my task :</p>
-                            <p> 5 </p>
+                            <p> {user.taskLength} </p>
                         </div>
                         <AiOutlineArrowRight className={'arrow'}/>
                     </NavLink>
@@ -47,7 +71,7 @@ export const User = () => {
                         <SiMicrosoftonenote/>
                         <div>
                             <p>my note :</p>
-                            <p> 11 </p>
+                            <p> {user.notesLength}</p>
                         </div>
                         <AiOutlineArrowRight className={'arrow'}/>
                     </NavLink>
@@ -55,15 +79,15 @@ export const User = () => {
                         <MdOutlineTaskAlt/>
                         <div>
                             <p>my todo :</p>
-                            <p> 6 </p>
+                            <p> {user.todosLength} </p>
                         </div>
                         <AiOutlineArrowRight className={'arrow'}/>
                     </NavLink>
                     <NavLink className={'box'} to={'/archive'}>
                         <AiOutlineFall/>
                         <div>
-                            <p>all :</p>
-                            <p> 23 </p>
+                            <p>archive :</p>
+                            <p>{user.archiveLength} </p>
                         </div>
                         <AiOutlineArrowRight className={'arrow'}/>
                     </NavLink>
@@ -88,7 +112,11 @@ export const User = () => {
                     </div>
                 </UserEvaluationBox>
             </UserPageContainer>
-            {changeStatusOpen && <UserChangeStatus isOpen={setChangeStatusOpen} userId={cookie.user}/>}
+            {changeStatusOpen &&
+                <UserChangeStatus
+                    isOpen={setChangeStatusOpen}
+                    userId={cookie.user}
+                    refreshData={getUserInfo}/>}
             {changePassOpen && <UserChangePass isActive={setChangePassOpen} userId={cookie.user}/>}
         </>
     )
