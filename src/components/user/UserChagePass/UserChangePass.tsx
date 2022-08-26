@@ -5,6 +5,7 @@ import {SyntheticEvent, useState} from "react";
 import {UserModalContainer, UserModalStyles} from "../../../const/layout/UserModal.styles";
 import {useColorMode, useToast} from "@chakra-ui/react";
 import {config} from "../../config/config";
+import {Spinner} from "../../commons/Spinner/Spinner";
 
 interface Props {
     isOpen: (arg: boolean) => void
@@ -95,6 +96,9 @@ export const UserChangePass = ({isOpen, userId, refreshData}: Props) => {
                     </label>
                     <FormButton buttonName={'change'}/>
                     <AiOutlineClose onClick={() => isOpen(false)} className={'closeIcon'}/>
+                    {loading && <div className={'spinnerBox'}>
+                        <Spinner/>
+                    </div>}
                 </form>
             </UserModalContainer>
         </UserModalStyles>
