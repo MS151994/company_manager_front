@@ -40,6 +40,7 @@ export const Form = styled.form`
       outline-color: orange;
       margin-top: 5px;
       width: 100%;
+      cursor: pointer;
     }
 
     & .checkBox {
