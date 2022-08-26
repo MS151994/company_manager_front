@@ -1,5 +1,5 @@
 import {useCookies} from "react-cookie";
-import {UserEvaluationBox, UserInfoBox, UserPageContainer,} from "../../const/layout/User.styles";
+import {UserEvaluationBox, UserPageContainer,} from "../../const/layout/User.styles";
 import {PageTitle} from "../commons/PageTitle/PageTitle";
 import {AiOutlineAppstoreAdd, AiOutlineArrowRight, AiOutlineClockCircle, AiOutlineFall} from "react-icons/ai";
 import {NavLink} from "react-router-dom";
@@ -28,6 +28,7 @@ export const User = () => {
         todosLength: '',
         archiveLength: ''
     })
+    const dt = new Date(user.createdAt)
 
     const handleLogOut = () => {
         removeCookie('user');
@@ -52,12 +53,19 @@ export const User = () => {
         <>
             <PageTitle pageTitle={'User page'}/>
             <UserPageContainer>
-                <div>
-                    <FaUserCog/>
+                <div className={'userInfo'}>
+                    <div>
+                        <FaUserCog/>
+                    </div>
+                    <div>
+                        <p>User name: <span>{cookie.username}</span></p>
+                        <p>User status: {user.userStatus} </p>
+                        <p className={'otherInfo'}>User role:<span className={'otherInfoSpan'}> {user.userRole}  </span>
+                        </p>
+                        <p className={'otherInfo'}>User status:<span
+                            className={'otherInfoSpan'}> {dt.toLocaleDateString()}  </span></p>
+                    </div>
                 </div>
-                <UserInfoBox>
-                    <p>User name: <span>{cookie.username}</span> <small> {user.userStatus}</small></p>
-                </UserInfoBox>
                 <UserEvaluationBox>
                     <NavLink className={'box'} to={'/tasks'}>
                         <AiOutlineAppstoreAdd/>
@@ -116,8 +124,14 @@ export const User = () => {
                 <UserChangeStatus
                     isOpen={setChangeStatusOpen}
                     userId={cookie.user}
+                    status={user.userStatus}
                     refreshData={getUserInfo}/>}
-            {changePassOpen && <UserChangePass isActive={setChangePassOpen} userId={cookie.user}/>}
+            {changePassOpen &&
+                <UserChangePass
+                    isOpen={setChangePassOpen}
+                    userId={cookie.user}
+                    refreshData={getUserInfo}
+                />}
         </>
     )
 }
