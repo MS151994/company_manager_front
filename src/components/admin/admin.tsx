@@ -87,7 +87,8 @@ export const Admin = () => {
                     </div>
                 </UserEvaluationBox>
             </UserPageContainer>
-            {changeStatusOpen && <UserChangeStatus isOpen={setChangeStatusOpen} userId={cookie.user}/>}
+            {changeStatusOpen && <UserChangeStatus isOpen={setChangeStatusOpen} userId={cookie.user}
+                                                   refreshData={() => console.log('ok')}/>}
             {changePassOpen && <UserChangePass isActive={setChangePassOpen} userId={cookie.user}/>}
             {addUser && <AddNewUser close={setAddUser}/>}
         </>
