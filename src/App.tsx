@@ -31,7 +31,7 @@ export const App = () => {
                            element={(cookie.user && cookie.user !== "undefined") ? <Tasks/> : <UserLogin/>}/>
                     <Route path="/archive"
                            element={(cookie.user && cookie.user !== "undefined") ? <ArchiveTasks/> : <UserLogin/>}/>
-                    <Route path={'/user'}
+                    <Route path={'/user/user'}
                            element={(cookie.user && cookie.user !== "undefined") ? <UserPage/> : <UserLogin/>}/>
                     <Route path={'/user/admin'}
                            element={(cookie.user && cookie.user !== "undefined") ? <AdminPage/> : <UserLogin/>}/>

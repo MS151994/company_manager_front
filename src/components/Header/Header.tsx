@@ -35,7 +35,7 @@ export const Header = () => {
                 />
                 <LoggedUserInfo>
                     Welcome,
-                    <NavLink to={'/user'}>{cookie.username}</NavLink>
+                    <NavLink to={'/user/user'}>{cookie.username}</NavLink>
                 </LoggedUserInfo>
                 <LogOutButton
                     borderColor={colorMode}
