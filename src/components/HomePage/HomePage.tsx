@@ -2,7 +2,7 @@ import {PageTitle} from "../commons/PageTitle/PageTitle";
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {OneItem} from "./OneItem/OneItem";
-import {useToast} from "@chakra-ui/react";
+import {useColorMode, useToast} from "@chakra-ui/react";
 import {Search} from "../commons/modals/Search/Search";
 import {Spinner} from "../commons/Spinner/Spinner";
 import {SearchBox, TaskBox} from "./HomePage.styles";
@@ -16,6 +16,7 @@ export const HomePage = () => {
     const [cookie] = useCookies(['user']);
     const [loading, setLoading] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState(false)
+    const {colorMode} = useColorMode()
     const toast = useToast();
 
     const refreshTasks = async () => {
@@ -44,7 +45,7 @@ export const HomePage = () => {
     return (
         <>
             <PageTitle pageTitle={'home page'}/>
-            <SearchBox onClick={() => setOpenSearch(!openSearch)}>
+            <SearchBox onClick={() => setOpenSearch(!openSearch)} currentColor={colorMode}>
                 <BsSearch/>
                 <input
                     type="text"

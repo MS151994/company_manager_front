@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import {device} from "../../const/MediaQueries";
 
-export const SearchBox = styled.div`
+interface Props {
+    currentColor: string
+}
+
+export const SearchBox = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +22,7 @@ export const SearchBox = styled.div`
     cursor: pointer;
     margin-left: 10px;
     margin-right: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid ${props => props.currentColor === "light" ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'};
     border-radius: 4px;
   }
 `
