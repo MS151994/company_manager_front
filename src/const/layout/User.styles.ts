@@ -8,7 +8,38 @@ export const UserPageContainer = styled.div`
   align-items: flex-start;
   padding: 10px;
 
-  & div:nth-child(1) {
+  & .userInfo {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    ${device.tablet} {
+      width: 70%;
+    }
+
+    & div {
+      margin-left: 10px;
+    }
+
+    & .otherInfo {
+      font-size: 0.8rem;
+    }
+
+    & .otherInfoSpan {
+      color: orange;
+    }
+
+    & div > p {
+      font-size: 1.5rem;
+      font-weight: 100;
+      letter-spacing: 2px;
+
+      & > span {
+        color: orange;
+        text-transform: uppercase;
+      }
+    }
+
     & svg {
       font-size: 5rem;
       color: orange;
@@ -22,47 +53,20 @@ export const UserPageContainer = styled.div`
     border-radius: 4px;
   }
 `
-
-export const UserInfoBox = styled.div`
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
-  text-align: center;
-
-  ${device.desktop}{
-    max-width: 60%;
-  }
-  
-  & > p {
-    font-size: 2rem;
-    font-weight: 100;
-    letter-spacing: 2px;
-
-    & > span {
-      font-size: 2.4rem;
-      color: orange;
-      text-transform: uppercase;
-    }
-  }
-`
-
 export const UserEvaluationBox = styled.div`
   justify-content: space-around;
   flex-wrap: nowrap;
   flex-direction: column;
   width: 100%;
-  
-  ${device.tablet}{
+
+  ${device.tablet} {
     flex-wrap: wrap;
     flex-direction: row;
   }
-  
-  ${device.desktop}{
-    max-width: 60%;
+
+  ${device.desktop} {
+    max-width: 50%;
   }
-  
 
   & > .box {
     display: flex;
@@ -76,12 +80,11 @@ export const UserEvaluationBox = styled.div`
     border-radius: 4px;
     transition: 0.3s;
     cursor: pointer;
-    
-    ${device.tablet}{
+
+    ${device.tablet} {
       height: 200px;
       width: 200px;
     }
-    
 
     & .arrow {
       font-size: 1.2rem;
@@ -112,52 +115,6 @@ export const UserEvaluationBox = styled.div`
         color: orange;
         font-weight: 500;
       }
-
     }
-
   }
-
-`
-export const Form = styled.div`
-  form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    margin: 0 auto;
-    background-color: red;
-
-    & select {
-      padding: 10px;
-      background-color: transparent;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      border-radius: 4px;
-      width: 100%;
-      margin-right: 10px;
-
-      & option {
-        color: black
-      }
-    }
-
-    & button {
-      &:hover {
-        &svg {
-          color: orange;
-        }
-      }
-    }
-
-    & svg {
-      font-size: 1.6rem;
-      cursor: pointer;
-      transition: 0.3s;
-
-    }
-
-  }
-
-
-
 `
